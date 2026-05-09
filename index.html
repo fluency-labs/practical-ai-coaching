@@ -15,9 +15,11 @@
   --ink: #0A122A;
   --green: #B0CDA2;
   --teal: #597371;
+  --teal-dark: #4a6362;
   --soft: #DFEAD7;
   --soft-2: #EAF0E2;
-  --max: 1180px;
+  --max: 1240px;
+  --nav-h: 60px;
 }
 
 html { scroll-behavior: smooth; }
@@ -28,128 +30,153 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
-/* ============= TYPOGRAPHY HELPERS ============= */
+/* ============= TYPOGRAPHY ============= */
 .eyebrow {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 .t-hero {
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(48px, 7.5vw, 88px);
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
 }
 .t-hero em { font-style: italic; color: var(--teal); font-weight: 400; }
 .t-section {
-  font-size: clamp(24px, 3vw, 34px);
+  font-size: clamp(28px, 4vw, 46px);
   font-weight: 700;
-  line-height: 1.22;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
 }
 .t-section em { font-style: italic; color: var(--teal); font-weight: 400; }
 .t-sub {
-  font-size: 16px;
+  font-size: clamp(16px, 1.4vw, 19px);
   font-weight: 300;
-  line-height: 1.65;
+  line-height: 1.6;
   opacity: 0.78;
-  max-width: 680px;
+  max-width: 720px;
 }
 .t-sub em { font-style: italic; color: var(--teal); opacity: 1; font-weight: 400; }
-.t-body {
-  font-size: 14.5px;
-  font-weight: 300;
-  line-height: 1.65;
-}
-
 .rule {
-  width: 44px;
+  width: 48px;
   height: 2px;
   background: var(--green);
-  margin: 18px 0 22px;
+  margin: 22px 0 26px;
 }
 
-.section {
-  padding: 96px 32px;
-  max-width: var(--max);
-  margin: 0 auto;
+/* ============= FULL-VIEWPORT SECTIONS ============= */
+.full {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-h) + 48px) 32px 64px;
   position: relative;
 }
-.section-bg-soft { background: var(--soft-2); }
-.section-bg-soft-wrap { background: var(--soft-2); }
+.full-inner {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.full.alt { background: var(--soft-2); }
+.full.dark { background: var(--ink); color: var(--bg); }
+.full.dark .t-section em,
+.full.dark .eyebrow { color: var(--green); }
 
 @media (max-width: 720px) {
-  .section { padding: 64px 22px; }
+  .full { padding: calc(var(--nav-h) + 36px) 22px 48px; min-height: auto; padding-top: 80px; padding-bottom: 80px; }
 }
 
 /* ============= NAV ============= */
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(246, 248, 242, 0.92);
-  backdrop-filter: saturate(180%) blur(8px);
+  height: var(--nav-h);
+  background: rgba(246, 248, 242, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid rgba(10,18,42,0.06);
 }
 .nav-inner {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 16px 32px;
+  height: 100%;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.nav-lockup { display: flex; align-items: center; gap: 10px; }
-.nav-lockup img { height: 26px; }
+.nav-lockup { display: flex; align-items: center; gap: 12px; }
+.nav-lockup img { height: 24px; }
 .nav-lockup .nav-tag {
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--teal);
-  padding-left: 12px;
-  border-left: 1px solid rgba(10,18,42,0.12);
-}
-.nav-cta {
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--teal);
-  padding: 10px 18px;
-  border: 1px solid var(--teal);
-  transition: background 0.2s, color 0.2s;
-}
-.nav-cta:hover { background: var(--teal); color: var(--bg); }
-
-@media (max-width: 720px) {
-  .nav-inner { padding: 14px 22px; }
-  .nav-lockup .nav-tag { display: none; }
-}
-
-/* ============= HERO ============= */
-.hero { padding-top: 80px; padding-bottom: 88px; }
-.hero .t-hero { margin-bottom: 18px; }
-.hero .t-sub { font-size: 18px; font-style: italic; max-width: 720px; }
-.hero-scroll {
-  margin-top: 56px;
-  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
+  padding-left: 14px;
+  border-left: 1px solid rgba(10,18,42,0.14);
+}
+.nav-cta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  padding: 9px 18px;
+  border: 1px solid var(--teal);
+  transition: background 0.2s, color 0.2s;
+}
+.nav-cta:hover { background: var(--teal); color: var(--bg); }
+@media (max-width: 720px) {
+  .nav-inner { padding: 0 22px; }
+  .nav-lockup .nav-tag { display: none; }
+}
+
+/* ============= HERO ============= */
+.hero { position: relative; }
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(176, 205, 162, 0.28), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(89, 115, 113, 0.10), transparent 60%);
+  opacity: 0.9;
+}
+.hero .full-inner { position: relative; z-index: 1; }
+.hero .t-hero { margin-bottom: 22px; }
+.hero .t-sub { font-size: clamp(17px, 1.5vw, 21px); font-style: italic; max-width: 760px; }
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-top: 56px;
+  flex-wrap: wrap;
+}
+.hero-scroll {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  opacity: 0.7;
+  gap: 10px;
+  opacity: 0.8;
 }
 .hero-scroll::after {
   content: "↓";
@@ -158,101 +185,185 @@ a { color: inherit; text-decoration: none; }
 }
 @keyframes nudge {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
+  50% { transform: translateY(5px); }
 }
 
-/* ============= MOMENTO + PROPUESTA ============= */
-.bullets { display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin-top: 22px; }
-.bul {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-.bul-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--green);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 9px;
-}
-
-.steps {
+/* ============= MOMENTO · cards ============= */
+.momento-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  margin-top: 36px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 44px;
 }
-.step {
-  border-top: 2px solid var(--green);
-  padding-top: 18px;
+.stat-card {
+  background: var(--bg);
+  border: 1px solid rgba(10,18,42,0.08);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
-.step-num {
-  font-size: 12px;
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(10,18,42,0.07);
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--green);
+}
+.stat-tag {
+  font-size: 9.5px;
   font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--teal);
-  letter-spacing: 0.14em;
-  margin-bottom: 12px;
 }
-.step-title {
+.stat-num {
+  font-size: clamp(40px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.stat-num em { font-style: italic; color: var(--teal); font-weight: 400; }
+.stat-title {
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 8px;
+  line-height: 1.3;
 }
-.step-desc {
-  font-size: 13.5px;
+.stat-desc {
+  font-size: 13px;
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.55;
   opacity: 0.78;
 }
-@media (max-width: 920px) {
-  .steps { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 540px) {
-  .steps { grid-template-columns: 1fr; }
+.stat-source {
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.45;
 }
 
-.bridge {
-  margin-top: 56px;
-  padding: 22px 26px;
+.momento-strip {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(10,18,42,0.08);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.momento-strip-h {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-right: 18px;
+  flex-shrink: 0;
+}
+.tag-chip {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  border: 1px solid rgba(10,18,42,0.18);
   background: var(--bg);
-  border-left: 3px solid var(--green);
-  font-style: italic;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.6;
-  max-width: 720px;
+}
+.tag-chip:hover { border-color: var(--teal); color: var(--teal); }
+
+@media (max-width: 980px) {
+  .momento-grid { grid-template-columns: 1fr; }
 }
 
-/* ============= ORBITAL · SEGMENTO 2A ============= */
-.section-orbital {
+/* ============= ABORDAJE · ORBITAL ============= */
+.abordaje-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: 1fr 320px;
   gap: 48px;
-  align-items: start;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.abordaje-head .t-section { max-width: 720px; }
+.abordaje-meta {
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.55;
+  opacity: 0.75;
+  border-left: 2px solid var(--green);
+  padding: 6px 0 6px 14px;
+}
+
+.abordaje-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 380px;
+  gap: 56px;
+  align-items: stretch;
 }
 
 .orbital-wrap {
   position: relative;
   width: 100%;
-  max-width: 620px;
   aspect-ratio: 1 / 1;
-  margin: 12px auto 0;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
-.orbital-svg {
+.orbital-rings {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
   z-index: 0;
 }
-.orbital-svg line {
+.orbital-rings circle {
+  fill: none;
   stroke: var(--teal);
-  stroke-opacity: 0.18;
+  stroke-opacity: 0.08;
   stroke-width: 1;
-  stroke-dasharray: 2 4;
+}
+.orbital-rings .ring-active {
+  stroke-opacity: 0.18;
+  stroke-dasharray: 3 6;
+  animation: rotate-ring 60s linear infinite;
+  transform-origin: center;
+}
+@keyframes rotate-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orbital-spokes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.orbital-spokes line {
+  stroke: var(--teal);
+  stroke-opacity: 0.22;
+  stroke-width: 1.2;
+  stroke-dasharray: 4 5;
+  transition: stroke-opacity 0.3s ease;
+}
+.orbital-spokes line.active {
+  stroke-opacity: 0.6;
+  stroke: var(--teal);
+  stroke-width: 1.6;
+  animation: dash-flow 4s linear infinite;
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -90; }
 }
 
 .exec-center {
@@ -260,62 +371,99 @@ a { color: inherit; text-decoration: none; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  background: var(--teal);
+  background: var(--ink);
   color: var(--bg);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 18px;
-  z-index: 2;
-  box-shadow: 0 8px 30px rgba(89, 115, 113, 0.25);
+  padding: 22px;
+  z-index: 3;
+  box-shadow:
+    0 0 0 8px rgba(89, 115, 113, 0.10),
+    0 0 0 18px rgba(89, 115, 113, 0.05),
+    0 18px 50px rgba(10, 18, 42, 0.35);
 }
-.exec-center-inner {
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.35;
-  letter-spacing: 0.02em;
+.exec-center::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--green), var(--teal), var(--green));
+  opacity: 0.18;
+  z-index: -1;
+  filter: blur(4px);
 }
-.exec-center-inner em {
-  display: block;
+.exec-mark {
+  font-family: 'Merriweather', serif;
   font-style: italic;
-  font-weight: 400;
-  font-size: 11px;
-  opacity: 0.7;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
+  font-size: 28px;
   color: var(--green);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.exec-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.exec-title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.exec-sub {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-top: 8px;
 }
 
 .pillar {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 168px;
-  margin: -36px 0 0 -84px;
+  width: 200px;
   background: var(--bg);
   border: 1.5px solid rgba(10,18,42,0.14);
-  padding: 12px 14px;
-  text-align: center;
+  padding: 16px 18px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.5, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
   z-index: 1;
+  text-align: left;
 }
+.pillar.bottom { transform-origin: top center; }
 .pillar:hover, .pillar.active {
-  background: var(--soft);
+  background: var(--bg);
   border-color: var(--teal);
-  transform: scale(1.04);
-  z-index: 3;
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 12px 32px rgba(10,18,42,0.10);
+  z-index: 4;
+}
+.pillar-num {
+  font-family: 'Merriweather', serif;
+  font-style: italic;
+  font-size: 30px;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 6px;
+  font-weight: 400;
 }
 .pillar-title {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.3;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.005em;
 }
 .pillar-tag {
   display: block;
@@ -325,19 +473,33 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   color: var(--teal);
   opacity: 0.75;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
+/* 4 posiciones cardinales, distribución equilibrada */
+.pillar.p-top    { top: 4%;  left: 50%; transform: translate(-50%, 0); }
+.pillar.p-right  { top: 50%; left: 96%; transform: translate(-100%, -50%); }
+.pillar.p-bottom { top: 96%; left: 50%; transform: translate(-50%, -100%); }
+.pillar.p-left   { top: 50%; left: 4%;  transform: translate(0, -50%); }
+
+.pillar.p-top:hover, .pillar.p-top.active       { transform: translate(-50%, -3px) scale(1.06); }
+.pillar.p-right:hover, .pillar.p-right.active   { transform: translate(-100%, -50%) scale(1.06); }
+.pillar.p-bottom:hover, .pillar.p-bottom.active { transform: translate(-50%, -100%) scale(1.06); }
+.pillar.p-left:hover, .pillar.p-left.active     { transform: translate(0, -50%) scale(1.06); }
+
+/* ============= DETAIL PANEL ============= */
 .detail-panel {
   background: var(--bg);
   border: 1px solid rgba(10,18,42,0.08);
-  padding: 28px 26px;
+  padding: 32px 30px;
   position: sticky;
-  top: 96px;
-  min-height: 320px;
+  top: 80px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
 }
 .detail-empty {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 300;
   font-style: italic;
   opacity: 0.55;
@@ -347,87 +509,101 @@ a { color: inherit; text-decoration: none; }
   display: inline-block;
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--teal);
   background: var(--soft);
-  padding: 4px 10px;
-  margin-bottom: 14px;
+  padding: 5px 11px;
+  margin-bottom: 16px;
+  width: fit-content;
 }
 .detail-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 1.25;
-  margin-bottom: 16px;
+  line-height: 1.22;
+  margin-bottom: 18px;
 }
-.detail-block { margin-bottom: 16px; }
+.detail-block { margin-bottom: 18px; }
 .detail-block:last-child { margin-bottom: 0; }
 .detail-h {
   font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 .detail-p {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.6;
 }
 
-@media (max-width: 980px) {
-  .section-orbital { grid-template-columns: 1fr; }
-  .detail-panel { position: static; min-height: 0; }
+@media (max-width: 1080px) {
+  .abordaje-grid { grid-template-columns: 1fr; gap: 36px; }
+  .detail-panel { position: static; }
+  .abordaje-head { grid-template-columns: 1fr; gap: 18px; }
+}
+@media (max-width: 720px) {
   .orbital-wrap { aspect-ratio: auto; max-width: 100%; }
-  .orbital-svg { display: none; }
-  .exec-center { position: relative; transform: none; top: 0; left: 0; margin: 0 auto 24px; }
-  .pillars-mobile { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .orbital-rings, .orbital-spokes { display: none; }
+  .exec-center {
+    position: relative;
+    top: 0; left: 0;
+    transform: none;
+    width: 220px; height: 220px;
+    margin: 0 auto 24px;
+  }
+  .pillars-mobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
   .pillars-mobile .pillar {
     position: relative;
     top: 0; left: 0;
+    transform: none;
     width: 100%;
-    margin: 0;
+  }
+  .pillars-mobile .pillar:hover, .pillars-mobile .pillar.active {
+    transform: scale(1.02);
   }
 }
-@media (max-width: 540px) {
-  .pillars-mobile { grid-template-columns: 1fr; }
-}
 
-/* ============= PLAN DE TRABAJO · SEGMENTO 2B ============= */
+/* ============= PLAN DE TRABAJO ============= */
 .plan-canvas {
   display: grid;
   grid-template-columns: 1fr auto 1.4fr;
-  gap: 28px;
+  gap: 32px;
   align-items: stretch;
-  margin-top: 36px;
+  margin-top: 44px;
 }
 .phase {
   border: 1px solid rgba(10,18,42,0.1);
   background: var(--bg);
-  padding: 26px 24px;
+  padding: 32px 28px;
   display: flex;
   flex-direction: column;
 }
 .phase-tag {
   font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .phase-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 8px;
-  line-height: 1.25;
+  margin-bottom: 10px;
+  line-height: 1.2;
 }
 .phase-title em { font-style: italic; color: var(--teal); font-weight: 400; }
 .phase-sub {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 300;
-  line-height: 1.55;
+  line-height: 1.6;
   opacity: 0.78;
   margin-bottom: 18px;
 }
@@ -436,26 +612,21 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 8px;
   background: var(--soft);
-  padding: 8px 12px;
-  font-size: 11px;
+  padding: 9px 14px;
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 18px;
+  margin-bottom: 22px;
   width: fit-content;
 }
-
-.foundations-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.foundations-list { display: flex; flex-direction: column; gap: 10px; }
 .foundation-item {
   font-size: 13.5px;
   font-weight: 400;
   line-height: 1.5;
-  padding: 10px 12px;
+  padding: 12px 14px;
   background: var(--soft-2);
   border-left: 2px solid var(--green);
 }
@@ -465,25 +636,22 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 26px;
   color: var(--teal);
-  opacity: 0.55;
+  opacity: 0.5;
   padding: 0 4px;
+  font-weight: 300;
 }
 
 .tracks-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 6px;
 }
 .track {
   border: 1px solid rgba(10,18,42,0.12);
-  padding: 14px 12px;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  text-align: center;
+  padding: 14px 14px;
   cursor: pointer;
   transition: all 0.2s ease;
   background: var(--bg);
@@ -491,58 +659,77 @@ a { color: inherit; text-decoration: none; }
 .track:hover, .track.active {
   background: var(--soft);
   border-color: var(--teal);
+  transform: translateX(2px);
+}
+.track-num {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+.track-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.3;
 }
 .track.empty {
   border-style: dashed;
+  cursor: default;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.track.empty .track-name {
   font-weight: 300;
   font-style: italic;
   opacity: 0.55;
-  cursor: default;
+  font-size: 12px;
 }
-.track.empty:hover { background: var(--bg); border-color: rgba(10,18,42,0.12); }
+.track.empty:hover { background: var(--bg); border-color: rgba(10,18,42,0.12); transform: none; }
 
 .track-detail {
   margin-top: 18px;
-  padding: 18px 18px;
+  padding: 20px 22px;
   background: var(--soft-2);
   border-left: 3px solid var(--teal);
   font-size: 13px;
   line-height: 1.6;
-  display: none;
 }
-.track-detail.show { display: block; }
 .track-detail h4 {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .track-detail p { font-weight: 300; opacity: 0.85; }
 
-/* Balance bar */
 .balance {
-  margin-top: 38px;
+  margin-top: 44px;
   border: 1px solid rgba(10,18,42,0.08);
-  padding: 24px 26px;
+  padding: 26px 28px;
   background: var(--bg);
 }
 .balance-h {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--teal);
 }
 .balance-bar {
   position: relative;
-  height: 38px;
+  height: 42px;
   background: linear-gradient(90deg,
     var(--teal) 0%,
-    var(--teal) 35%,
-    var(--green) 65%,
+    var(--teal) 30%,
+    var(--green) 70%,
     var(--green) 100%);
   border-radius: 2px;
   overflow: hidden;
@@ -556,35 +743,19 @@ a { color: inherit; text-decoration: none; }
     rgba(255,255,255,0.18) 50%,
     rgba(255,255,255,0) 100%);
 }
-.balance-stops {
-  position: relative;
-  height: 38px;
-  margin-top: -38px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--bg);
-  pointer-events: none;
-}
 .balance-foot {
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
+  margin-top: 14px;
   font-size: 12px;
   font-weight: 300;
-  opacity: 0.75;
+  opacity: 0.78;
 }
 .balance-foot span:nth-child(2) { font-style: italic; }
 
-@media (max-width: 980px) {
+@media (max-width: 1080px) {
   .plan-canvas { grid-template-columns: 1fr; }
   .phase-connector { transform: rotate(90deg); padding: 6px 0; }
-  .tracks-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 540px) {
   .tracks-grid { grid-template-columns: 1fr; }
@@ -594,74 +765,79 @@ a { color: inherit; text-decoration: none; }
 .case-card {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 36px;
+  gap: 40px;
   align-items: center;
-  margin-top: 32px;
+  margin-top: 44px;
   background: var(--bg);
   border: 1px solid rgba(10,18,42,0.08);
-  padding: 36px;
+  padding: 44px;
 }
 .case-visual {
   background: var(--soft-2);
-  padding: 28px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
   font-family: 'Menlo', 'Monaco', monospace;
-  font-size: 11.5px;
+  font-size: 12px;
   line-height: 1.5;
 }
 .case-flow-node {
   background: var(--bg);
   border: 1px solid rgba(10,18,42,0.12);
-  padding: 10px 12px;
+  padding: 12px 14px;
   font-weight: 700;
 }
 .case-flow-node.accent { background: var(--teal); color: var(--bg); border-color: var(--teal); }
 .case-flow-node.human { background: var(--soft); border-color: var(--green); }
-.case-arrow { text-align: center; color: var(--teal); opacity: 0.5; font-size: 13px; }
+.case-arrow { text-align: center; color: var(--teal); opacity: 0.55; font-size: 14px; }
 .case-cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 22px;
+  gap: 10px;
+  margin-top: 26px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
   border-bottom: 1px solid var(--teal);
-  padding-bottom: 4px;
+  padding-bottom: 5px;
   width: fit-content;
 }
 .case-cta:hover { color: var(--ink); border-color: var(--ink); }
 
-@media (max-width: 820px) {
-  .case-card { grid-template-columns: 1fr; padding: 26px; }
+@media (max-width: 920px) {
+  .case-card { grid-template-columns: 1fr; padding: 30px; gap: 30px; }
 }
 
-/* ============= EJEMPLOS GRID ============= */
+/* ============= EJEMPLOS ============= */
 .examples {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 32px;
+  gap: 16px;
+  margin-top: 44px;
 }
 .example {
   border: 1px solid rgba(10,18,42,0.1);
-  padding: 18px 20px;
+  padding: 22px 24px;
   background: var(--bg);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.example:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal);
 }
 .example-title {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .example-desc {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 300;
   line-height: 1.6;
-  opacity: 0.78;
+  opacity: 0.8;
 }
 @media (max-width: 820px) {
   .examples { grid-template-columns: repeat(2, 1fr); }
@@ -674,25 +850,25 @@ a { color: inherit; text-decoration: none; }
 .team-leads {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-top: 32px;
+  gap: 22px;
+  margin-top: 44px;
 }
 .lead-card {
   border: 1px solid rgba(10,18,42,0.1);
-  padding: 22px 24px;
+  padding: 28px 28px;
   background: var(--bg);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 .lead-header {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   align-items: center;
 }
 .lead-photo {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: cover;
   filter: grayscale(100%);
@@ -700,62 +876,62 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 .lead-name {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 .lead-role {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--teal);
   line-height: 1.3;
 }
 .lead-bio {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 300;
-  line-height: 1.55;
-  opacity: 0.78;
+  line-height: 1.6;
+  opacity: 0.8;
 }
 .lead-contact {
   border-top: 1px solid rgba(10,18,42,0.08);
-  padding-top: 12px;
+  padding-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 .contact-row {
   display: grid;
-  grid-template-columns: 80px 1fr;
-  font-size: 12px;
+  grid-template-columns: 90px 1fr;
+  font-size: 12.5px;
 }
 .contact-label {
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--teal);
   align-self: center;
 }
 
 .team-rest {
-  margin-top: 44px;
-  padding-top: 36px;
+  margin-top: 48px;
+  padding-top: 40px;
   border-top: 1px solid rgba(10,18,42,0.08);
 }
 .team-rest-h {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 .support-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 22px;
 }
 .support-card {
   display: flex;
@@ -763,39 +939,39 @@ a { color: inherit; text-decoration: none; }
   align-items: flex-start;
 }
 .support-avatar {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: var(--soft);
   border: 1.5px solid var(--green);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--teal);
   flex-shrink: 0;
 }
 .support-info { min-width: 0; flex: 1; }
 .support-name {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 700;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 .support-role {
   font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--teal);
   line-height: 1.3;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 .support-bio {
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 300;
   line-height: 1.5;
-  opacity: 0.75;
+  opacity: 0.78;
 }
 @media (max-width: 820px) {
   .team-leads { grid-template-columns: 1fr; }
@@ -806,46 +982,50 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============= CTA ============= */
-.cta-section {
-  text-align: center;
-  background: var(--soft-2);
-  padding: 88px 32px;
-}
 .cta-inner {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
+  text-align: center;
 }
 .cta-title {
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: clamp(32px, 5vw, 52px);
   font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 28px;
+  line-height: 1.15;
+  margin-bottom: 32px;
+  letter-spacing: -0.015em;
 }
 .cta-title em { font-style: italic; color: var(--teal); font-weight: 400; }
 .cta-button {
   display: inline-block;
   background: var(--teal);
   color: var(--bg) !important;
-  padding: 18px 48px;
-  font-size: 12.5px;
+  padding: 20px 56px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
-.cta-button:hover { background: #4a6362; }
+.cta-button:hover { background: var(--teal-dark); transform: translateY(-2px); }
+.cta-foot {
+  margin-top: 28px;
+  font-size: 12px;
+  font-weight: 300;
+  opacity: 0.65;
+  font-style: italic;
+}
 
 /* ============= FOOTER ============= */
 .footer {
-  padding: 32px;
-  text-align: center;
+  padding: 28px 32px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  opacity: 0.45;
+  opacity: 0.5;
   color: var(--ink);
   background: var(--bg);
+  border-top: 1px solid rgba(10,18,42,0.06);
 }
 .footer-inner {
   max-width: var(--max);
@@ -855,6 +1035,28 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
   gap: 12px;
 }
+
+/* ============= REVEAL ON SCROLL ============= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+.reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.in > *:nth-child(2) { transition-delay: 0.18s; }
+.reveal-stagger.in > *:nth-child(3) { transition-delay: 0.31s; }
+.reveal-stagger.in > *:nth-child(4) { transition-delay: 0.44s; }
+.reveal-stagger.in > * { opacity: 0; transform: translateY(20px); }
+.reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
@@ -871,141 +1073,136 @@ a { color: inherit; text-decoration: none; }
 </nav>
 
 <!-- ============ 1 · HERO ============ -->
-<section class="section hero">
-  <div class="eyebrow">AI Advisory · 2026</div>
-  <h1 class="t-hero">Practical AI<br><em>Coaching.</em></h1>
-  <div class="rule"></div>
-  <p class="t-sub">Advisory de IA para ejecutivos que están liderando la transformación de su negocio en este punto de inflexión histórico.</p>
-  <a href="#abordaje" class="hero-scroll">Mirá cómo trabajamos</a>
+<section class="full hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="full-inner">
+    <div class="eyebrow reveal">AI Advisory · 2026</div>
+    <h1 class="t-hero reveal">Practical AI<br><em>Coaching.</em></h1>
+    <div class="rule reveal"></div>
+    <p class="t-sub reveal">Advisory de IA para ejecutivos que están liderando la transformación de su negocio en este punto de inflexión histórico.</p>
+    <div class="hero-meta reveal">
+      <a href="#momento" class="hero-scroll">Mirá adentro</a>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 2 · EL MOMENTO ============ -->
-<section class="section section-bg-soft-wrap" style="padding-left: 0; padding-right: 0; max-width: none;">
-  <div style="max-width: var(--max); margin: 0 auto; padding: 0 32px;">
-    <div class="eyebrow">El momento</div>
-    <h2 class="t-section">El desafío de un ejecutivo no es adoptar IA en lo que ya funciona. <em>Es entenderla en profundidad para rediseñar cómo funciona su negocio en esta nueva era.</em></h2>
-    <div class="bullets">
-      <div class="bul">
-        <div class="bul-dot"></div>
-        <div class="t-body">Lo que antes era trabajo experto ahora puede hacerlo un agente. Lo que antes llevaba semanas se resuelve en horas. La IA está cambiando dónde se crea el valor en tu negocio y a qué velocidad se mueve.</div>
+<section class="full alt" id="momento">
+  <div class="full-inner">
+    <div class="eyebrow reveal">El momento</div>
+    <h2 class="t-section reveal">El desafío no es adoptar IA en lo que ya funciona. <em>Es rediseñar cómo funciona tu negocio en esta nueva era.</em></h2>
+    <p class="t-sub reveal" style="margin-top: 18px;">El último estudio global de IBM sobre 2.000 CEOs (mayo 2026) confirma que el cambio ya no es tecnológico. Es estructural y profundamente ejecutivo.</p>
+
+    <div class="momento-grid reveal-stagger">
+      <div class="stat-card">
+        <span class="stat-tag">El C-Suite se reescribe</span>
+        <div class="stat-num">76<em>%</em></div>
+        <div class="stat-title">de las organizaciones ya tiene un Chief AI Officer.</div>
+        <p class="stat-desc">El año pasado eran solo 26%. El 85% de los CEOs dice que todos sus líderes funcionales tienen que volverse expertos en tecnología.</p>
+        <span class="stat-source">IBM CEO Study · 2026</span>
       </div>
-      <div class="bul">
-        <div class="bul-dot"></div>
-        <div class="t-body">Tu rol cambia con eso. Ya no se trata solo de tomar decisiones, sino de diseñar el sistema que las toma: qué decidís vos, qué un agente, qué tu equipo.</div>
+      <div class="stat-card">
+        <span class="stat-tag">La decisión se distribuye</span>
+        <div class="stat-num">79<em>%</em></div>
+        <div class="stat-title">de los ejecutivos está descentralizando la toma de decisiones.</div>
+        <p class="stat-desc">El 64% ya está cómodo tomando decisiones estratégicas con input de IA. Tu rol cambia de tomar decisiones a diseñar el sistema que las toma.</p>
+        <span class="stat-source">IBM CEO Study · 2026</span>
       </div>
-      <div class="bul">
-        <div class="bul-dot"></div>
-        <div class="t-body">Y no estás solo. Tu equipo entero está aprendiendo a trabajar con IA. Si no liderás ese aprendizaje, cada uno improvisa por su lado o no lo hace.</div>
+      <div class="stat-card">
+        <span class="stat-tag">El equipo no está listo</span>
+        <div class="stat-num">25<em>%</em></div>
+        <div class="stat-title">del workforce usa IA con regularidad. El resto, no.</div>
+        <p class="stat-desc">86% cree que su equipo tiene los skills, pero solo 1 de cada 4 los aplica. Si vos no liderás ese aprendizaje, cada uno improvisa por su lado.</p>
+        <span class="stat-source">IBM CEO Study · 2026</span>
       </div>
+    </div>
+
+    <div class="momento-strip reveal">
+      <span class="momento-strip-h">Las 5 áreas que se rediseñan</span>
+      <span class="tag-chip">Tecnología</span>
+      <span class="tag-chip">Finanzas</span>
+      <span class="tag-chip">Talento</span>
+      <span class="tag-chip">Operaciones</span>
+      <span class="tag-chip">Colaboración cross-funcional</span>
     </div>
   </div>
 </section>
 
-<!-- ============ 3 · LA PROPUESTA ============ -->
-<section class="section">
-  <div class="eyebrow">La propuesta</div>
-  <h2 class="t-section">Un equipo de coaches que te acompaña en <em>tu transformación.</em></h2>
-  <p class="t-sub" style="margin-top: 18px;">Programa tailor-made desde tus casos de uso. Una hora a la semana, soporte continuo entre sesiones, y un equipo detrás cuando hace falta más.</p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-title">Casos de uso</div>
-      <div class="step-desc">Nos contás tu día a día y tus prioridades. Diseñamos un programa a medida para vos y tu rol.</div>
+<!-- ============ 3 · NUESTRO ABORDAJE ============ -->
+<section class="full" id="abordaje">
+  <div class="full-inner">
+    <div class="abordaje-head reveal">
+      <div>
+        <div class="eyebrow">Nuestro abordaje</div>
+        <h2 class="t-section">Te ayudamos a construir <em>tu sistema</em>, no a usar IA suelta.</h2>
+      </div>
+      <div class="abordaje-meta">Programa tailor-made desde tus casos de uso. Una hora a la semana, soporte continuo entre sesiones. Cuatro pilares orbitando tu rol.</div>
     </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-title">Sesiones 1 a 1</div>
-      <div class="step-desc">Una hora por semana. Online o presencial en Madrid, Barcelona o tus oficinas. Londres con logística aparte.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-title">Construimos juntos</div>
-      <div class="step-desc">Te formamos en lo conceptual y construimos en vivo con tu material real. Aprendés haciendo.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <div class="step-title">Soporte continuo</div>
-      <div class="step-desc">Tu coach disponible por WhatsApp entre sesiones. Newsletter y biblioteca de Tracks siempre a mano.</div>
-    </div>
-  </div>
 
-  <div class="bridge">La propuesta entera no se entiende sin entender el sistema que construimos con vos. Mirá adentro.</div>
-</section>
+    <div class="abordaje-grid">
+      <div class="orbital-wrap" id="orbitalWrap">
 
-<!-- ============ 4 · ABORDAJE · SEGMENTO 2A ============ -->
-<section class="section" id="abordaje">
-  <div class="eyebrow">Nuestro abordaje</div>
-  <h2 class="t-section">Te ayudamos a construir <em>tu sistema</em>, no a usar IA suelta.</h2>
-  <p class="t-sub" style="margin-top: 18px; margin-bottom: 24px;">El programa orbita siempre alrededor tuyo. Cada pilar es una pieza concreta que vas a recibir. Pasá el cursor por cualquiera para ver el detalle.</p>
+        <svg class="orbital-rings" viewBox="0 0 600 600" aria-hidden="true">
+          <circle cx="300" cy="300" r="240" />
+          <circle cx="300" cy="300" r="180" class="ring-active" />
+          <circle cx="300" cy="300" r="130" />
+        </svg>
 
-  <div class="section-orbital">
-    <div class="orbital-wrap" id="orbitalWrap">
-      <svg class="orbital-svg" viewBox="0 0 600 600" preserveAspectRatio="none">
-        <line x1="300" y1="300" x2="300" y2="60" />
-        <line x1="300" y1="300" x2="488" y2="170" />
-        <line x1="300" y1="300" x2="540" y2="412" />
-        <line x1="300" y1="300" x2="380" y2="560" />
-        <line x1="300" y1="300" x2="220" y2="560" />
-        <line x1="300" y1="300" x2="60" y2="412" />
-        <line x1="300" y1="300" x2="112" y2="170" />
-      </svg>
+        <svg class="orbital-spokes" viewBox="0 0 600 600" aria-hidden="true">
+          <line data-spoke="sesiones"   x1="300" y1="300" x2="300" y2="60" />
+          <line data-spoke="construccion" x1="300" y1="300" x2="540" y2="300" />
+          <line data-spoke="newsletter" x1="300" y1="300" x2="300" y2="540" />
+          <line data-spoke="tracks"     x1="300" y1="300" x2="60"  y2="300" />
+        </svg>
 
-      <div class="exec-center">
-        <div class="exec-center-inner">
-          <em>El ejecutivo</em>
-          Vos en el centro del programa
+        <div class="exec-center">
+          <div class="exec-mark">F</div>
+          <div class="exec-eyebrow">Practical AI</div>
+          <div class="exec-title">Tu transformación ejecutiva</div>
+          <div class="exec-sub">El programa</div>
+        </div>
+
+        <div class="pillar p-top" data-pillar="sesiones">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Sesiones 1:1 semanales</div>
+          <span class="pillar-tag">Teoría + práctica</span>
+        </div>
+        <div class="pillar p-right" data-pillar="construccion">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Tailor-made + construcción en vivo</div>
+          <span class="pillar-tag">Tu material real</span>
+        </div>
+        <div class="pillar p-bottom" data-pillar="newsletter">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Newsletter Always-On</div>
+          <span class="pillar-tag">Estado del arte semanal</span>
+        </div>
+        <div class="pillar p-left" data-pillar="tracks">
+          <div class="pillar-num">04</div>
+          <div class="pillar-title">Fluency Labs Tracks</div>
+          <span class="pillar-tag">Videos especializados</span>
         </div>
       </div>
 
-      <div class="pillar" style="top: 10%; left: 50%;" data-pillar="sesiones">
-        <div class="pillar-title">Sesiones 1:1 semanales</div>
-        <span class="pillar-tag">Teoría + práctica</span>
-      </div>
-      <div class="pillar" style="top: 28%; left: 81%;" data-pillar="tailor">
-        <div class="pillar-title">Construcción tailor-made</div>
-        <span class="pillar-tag">Diseñado para vos</span>
-      </div>
-      <div class="pillar" style="top: 69%; left: 90%;" data-pillar="vivo">
-        <div class="pillar-title">Construcción en vivo</div>
-        <span class="pillar-tag">Material real</span>
-      </div>
-      <div class="pillar" style="top: 93%; left: 63%;" data-pillar="coaching">
-        <div class="pillar-title">Coaching continuo</div>
-        <span class="pillar-tag">WhatsApp directo</span>
-      </div>
-      <div class="pillar" style="top: 93%; left: 37%;" data-pillar="tracks">
-        <div class="pillar-title">Fluency Labs Tracks</div>
-        <span class="pillar-tag">Biblioteca always-on</span>
-      </div>
-      <div class="pillar" style="top: 69%; left: 10%;" data-pillar="newsletter">
-        <div class="pillar-title">Newsletter Always-On</div>
-        <span class="pillar-tag">Estado del arte</span>
-      </div>
-      <div class="pillar" style="top: 28%; left: 19%;" data-pillar="equipo">
-        <div class="pillar-title">Equipo Fluency Labs</div>
-        <span class="pillar-tag">Detrás de tu coach</span>
-      </div>
+      <aside class="detail-panel" id="detailPanel">
+        <p class="detail-empty">Pasá el cursor por cualquier pilar del diagrama para ver el detalle. Hacé click para fijarlo y leer con calma.</p>
+      </aside>
     </div>
-
-    <aside class="detail-panel" id="detailPanel">
-      <p class="detail-empty">Pasá el cursor por cualquier pilar del diagrama para ver el detalle. Hacé click para fijarlo.</p>
-    </aside>
   </div>
 </section>
 
-<!-- ============ 5 · PLAN DE TRABAJO · SEGMENTO 2B ============ -->
-<section class="section section-bg-soft-wrap" style="padding-left: 0; padding-right: 0; max-width: none;">
-  <div style="max-width: var(--max); margin: 0 auto; padding: 0 32px;">
-    <div class="eyebrow">Plan de trabajo</div>
-    <h2 class="t-section">Empezás con foundations, después <em>te orientás a tu especialización.</em></h2>
-    <p class="t-sub" style="margin-top: 18px;">Cada cliente arranca con una base de IA Fluency calibrada a su nivel. Una vez instalada, el programa se vuelca a tu área de trabajo y tus acciones concretas, con cada vez más práctica y menos teoría.</p>
+<!-- ============ 4 · PLAN DE TRABAJO ============ -->
+<section class="full alt">
+  <div class="full-inner">
+    <div class="eyebrow reveal">Plan de trabajo</div>
+    <h2 class="t-section reveal">Empezás con foundations. Después <em>te orientás a tu especialización.</em></h2>
+    <p class="t-sub reveal" style="margin-top: 18px;">Cada cliente arranca con una base de IA Fluency calibrada a su nivel. Una vez instalada, el programa se vuelca a tu área de trabajo y a tus acciones críticas, con cada vez más práctica y menos teoría.</p>
 
-    <div class="plan-canvas">
+    <div class="plan-canvas reveal">
       <div class="phase">
         <span class="phase-tag">Fase 1</span>
         <h3 class="phase-title">AI Fluency <em>Foundations</em></h3>
-        <p class="phase-sub">Conceptos clave para que entiendas a fondo cómo pensar y trabajar con IA. Mezcla teoría y práctica desde el día uno.</p>
+        <p class="phase-sub">Conceptos clave para entender a fondo cómo pensar y trabajar con IA. Mezcla teoría y práctica desde el día uno.</p>
         <span class="phase-meta">Entre 2 y 4 sesiones · según tu nivel</span>
         <div class="foundations-list">
           <div class="foundation-item"><strong>Cómo piensa la IA</strong> y por qué eso cambia cómo le pedís las cosas.</div>
@@ -1020,104 +1217,128 @@ a { color: inherit; text-decoration: none; }
       <div class="phase">
         <span class="phase-tag">Fase 2</span>
         <h3 class="phase-title">Specialization <em>Track</em></h3>
-        <p class="phase-sub">Elegimos juntos un track según tu área de trabajo y acciones concretas que querés transformar. Más práctica, menos teoría.</p>
+        <p class="phase-sub">Elegimos juntos un track según tu área de trabajo y las acciones críticas que querés transformar. Más práctica, menos teoría.</p>
         <span class="phase-meta">Personalizado · evolutivo</span>
         <div class="tracks-grid">
-          <div class="track" data-track="agenda">Tu agenda diaria</div>
-          <div class="track" data-track="reuniones">Reuniones críticas</div>
-          <div class="track" data-track="comercial">Pipeline comercial</div>
-          <div class="track" data-track="creative">Creative Content</div>
-          <div class="track" data-track="web">Web Development</div>
-          <div class="track" data-track="comunicacion">Comunicación</div>
-          <div class="track empty">+ otros bajo demanda</div>
+          <div class="track" data-track="ir">
+            <div class="track-num">Track 01</div>
+            <div class="track-name">Investor Relations &amp; Reporting</div>
+          </div>
+          <div class="track" data-track="ma">
+            <div class="track-num">Track 02</div>
+            <div class="track-name">M&amp;A &amp; Due Diligence</div>
+          </div>
+          <div class="track" data-track="board">
+            <div class="track-num">Track 03</div>
+            <div class="track-name">Board &amp; Governance</div>
+          </div>
+          <div class="track" data-track="memos">
+            <div class="track-num">Track 04</div>
+            <div class="track-name">Investment Memos &amp; Theses</div>
+          </div>
+          <div class="track" data-track="comms">
+            <div class="track-num">Track 05</div>
+            <div class="track-name">Strategic Communications</div>
+          </div>
+          <div class="track" data-track="portfolio">
+            <div class="track-num">Track 06</div>
+            <div class="track-name">Portfolio Monitoring</div>
+          </div>
+          <div class="track empty">
+            <div class="track-name">+ tracks bajo demanda</div>
+          </div>
         </div>
         <div class="track-detail" id="trackDetail">
-          <h4 id="trackDetailTitle">Tu agenda diaria</h4>
-          <p id="trackDetailDesc">Construimos un sistema que prioriza tu inbox, prepara tu briefing matinal y arma drafts en tu voz. Cada paso lo construís vos con tu coach, sobre tu material real.</p>
+          <h4 id="trackDetailTitle">Investor Relations &amp; Reporting</h4>
+          <p id="trackDetailDesc">Construimos un sistema que prepara reportings a LPs, sintetiza performance trimestral en tu narrativa, y arma drafts de IR letters listas para revisar. Cada pieza la trabajamos sobre tus templates y data real.</p>
         </div>
       </div>
     </div>
 
-    <div class="balance">
+    <div class="balance reveal">
       <div class="balance-h">
         <span>Balance teoría · práctica a lo largo del programa</span>
       </div>
       <div class="balance-bar"></div>
-      <div class="balance-stops">
-        <span></span>
-        <span></span>
-      </div>
       <div class="balance-foot">
-        <span>Foundations &middot; más teoría que práctica</span>
-        <span>Specialization &middot; mucha más práctica que teoría</span>
+        <span>Foundations &middot; teoría con práctica</span>
+        <span>Specialization &middot; práctica con teoría puntual</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 6 · CASO VIVO + EJEMPLOS ============ -->
-<section class="section">
-  <div class="eyebrow">Un caso vivo</div>
-  <h2 class="t-section">Así se ve cuando todo está orquestado.</h2>
-  <p class="t-sub" style="margin-top: 18px;">Uno de nuestros clientes recibe cada lunes a las 7am un memo de la sesión anterior, con tareas y material. Lo escribió un agente. Lo construyó él mismo durante el primer mes del programa.</p>
+<!-- ============ 5 · CASO VIVO ============ -->
+<section class="full">
+  <div class="full-inner">
+    <div class="eyebrow reveal">Un caso vivo</div>
+    <h2 class="t-section reveal">Así se ve cuando todo <em>está orquestado.</em></h2>
+    <p class="t-sub reveal" style="margin-top: 18px;">Uno de nuestros clientes recibe cada lunes a las 7am un memo de la sesión anterior, con tareas y material adjunto. Lo escribió un agente. Lo construyó él durante el primer mes del programa.</p>
 
-  <div class="case-card">
-    <div class="case-visual" aria-hidden="true">
-      <div class="case-flow-node accent">Agente nocturno · cron</div>
-      <div class="case-arrow">↓</div>
-      <div class="case-flow-node">Lee la sesión y prepara el draft</div>
-      <div class="case-arrow">↓</div>
-      <div class="case-flow-node">Crea draft en Gmail</div>
-      <div class="case-arrow">↓</div>
-      <div class="case-flow-node human">El coach revisa y envía</div>
-    </div>
-    <div>
-      <div class="eyebrow" style="margin-bottom: 10px;">Cliente · Mes 1</div>
-      <h3 style="font-size: 22px; font-weight: 700; line-height: 1.25; margin-bottom: 14px;">Un memo nocturno que <em style="font-style: italic; color: var(--teal); font-weight: 400;">se manda solo</em></h3>
-      <p style="font-size: 14px; font-weight: 300; line-height: 1.6; opacity: 0.8;">Cada pieza la trabajamos en sesión: cómo se piensa el problema, qué herramientas usar, cómo darle contexto, cómo validar el output. La firma sigue siendo del coach. La rutina, automática.</p>
-      <a href="../../Advisory%20Program/Clientes/1.%20Douglas%20Medrisch/3.%20Sessions/S3/diagrama-memo-session.html" class="case-cta" target="_blank" rel="noopener">Ver el diagrama interactivo &rarr;</a>
+    <div class="case-card reveal">
+      <div class="case-visual" aria-hidden="true">
+        <div class="case-flow-node accent">Agente nocturno · cron</div>
+        <div class="case-arrow">↓</div>
+        <div class="case-flow-node">Lee la sesión y prepara el draft</div>
+        <div class="case-arrow">↓</div>
+        <div class="case-flow-node">Crea el draft en Gmail</div>
+        <div class="case-arrow">↓</div>
+        <div class="case-flow-node human">El coach revisa y envía</div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom: 12px;">Cliente · Mes 1</div>
+        <h3 style="font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; line-height: 1.2; margin-bottom: 16px;">Un memo nocturno que <em style="font-style: italic; color: var(--teal); font-weight: 400;">se manda solo.</em></h3>
+        <p style="font-size: 15px; font-weight: 300; line-height: 1.65; opacity: 0.82;">Cada pieza la trabajamos en sesión: cómo se piensa el problema, qué herramientas usar, cómo darle contexto, cómo validar el output. La firma sigue siendo del coach. La rutina, automática.</p>
+        <a href="../../Advisory%20Program/Clientes/1.%20Douglas%20Medrisch/3.%20Sessions/S3/diagrama-memo-session.html" class="case-cta" target="_blank" rel="noopener">Ver el diagrama interactivo &rarr;</a>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="eyebrow" style="margin-top: 88px;">Ejemplos prácticos</div>
-  <h2 class="t-section">Lo que un ejecutivo termina <em>recibiendo cada día.</em></h2>
+<!-- ============ 6 · EJEMPLOS PRÁCTICOS ============ -->
+<section class="full alt">
+  <div class="full-inner">
+    <div class="eyebrow reveal">Ejemplos prácticos</div>
+    <h2 class="t-section reveal">Lo que un ejecutivo termina <em>recibiendo cada día.</em></h2>
+    <p class="t-sub reveal" style="margin-top: 18px;">Una muestra de las piezas que construimos juntos durante el programa. Todas funcionan en background, sin que tengas que abrir nada.</p>
 
-  <div class="examples">
-    <div class="example">
-      <div class="example-title">Briefing matinal</div>
-      <div class="example-desc">Emails priorizados, calendario revisado y prioridades resumidas. Listo antes de que te sientes.</div>
-    </div>
-    <div class="example">
-      <div class="example-title">Inbox priorizado</div>
-      <div class="example-desc">Tu inbox triado, clasificado por urgencia y temática, con borradores en tu voz listos para revisar.</div>
-    </div>
-    <div class="example">
-      <div class="example-title">Pre-board brief</div>
-      <div class="example-desc">Antes de cada board meeting o investor call: histórico, agenda y métricas, con talking points en tu voz.</div>
-    </div>
-    <div class="example">
-      <div class="example-title">Brief de cuenta clave</div>
-      <div class="example-desc">Antes de cada reunión con un cliente crítico: histórico relacional, status y temas pendientes.</div>
-    </div>
-    <div class="example">
-      <div class="example-title">Inteligencia competitiva</div>
-      <div class="example-desc">Un agente que escanea a tus competidores cada semana: lanzamientos, contrataciones, M&amp;A.</div>
-    </div>
-    <div class="example">
-      <div class="example-title">Decision log</div>
-      <div class="example-desc">Registro automático de tus decisiones críticas con contexto y reasoning para volver a buscarlas.</div>
+    <div class="examples reveal-stagger">
+      <div class="example">
+        <div class="example-title">Briefing matinal</div>
+        <div class="example-desc">Emails priorizados, calendario revisado y prioridades resumidas. Listo antes de que te sientes.</div>
+      </div>
+      <div class="example">
+        <div class="example-title">Pre-board brief</div>
+        <div class="example-desc">Antes de cada board meeting o investor call: histórico, agenda y métricas, con talking points en tu voz.</div>
+      </div>
+      <div class="example">
+        <div class="example-title">Brief de cuenta clave</div>
+        <div class="example-desc">Antes de cada reunión con un cliente o LP crítico: histórico relacional, status y temas pendientes.</div>
+      </div>
+      <div class="example">
+        <div class="example-title">Inteligencia competitiva</div>
+        <div class="example-desc">Un agente que escanea a tus competidores cada semana: lanzamientos, contrataciones, M&amp;A, movimientos relevantes.</div>
+      </div>
+      <div class="example">
+        <div class="example-title">Decision log</div>
+        <div class="example-desc">Registro automático de tus decisiones críticas con contexto y reasoning para volver a buscarlas y aprender.</div>
+      </div>
+      <div class="example">
+        <div class="example-title">Inbox priorizado</div>
+        <div class="example-desc">Tu inbox triado, clasificado por urgencia y temática, con borradores en tu voz listos para revisar y enviar.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 7 · EQUIPO ============ -->
-<section class="section section-bg-soft-wrap" style="padding-left: 0; padding-right: 0; max-width: none;">
-  <div style="max-width: var(--max); margin: 0 auto; padding: 0 32px;">
-    <div class="eyebrow">Tu coach lleva el caso</div>
-    <h2 class="t-section">Todo el equipo de Fluency Labs <em>está detrás.</em></h2>
-    <p class="t-sub" style="margin-top: 18px;">Generación AI Native. Más de 10 años combinados en tecnología, producto, banca, fintech y consultoría aplicada.</p>
+<section class="full">
+  <div class="full-inner">
+    <div class="eyebrow reveal">Tu coach lleva el caso</div>
+    <h2 class="t-section reveal">Todo el equipo de Fluency Labs <em>está detrás.</em></h2>
+    <p class="t-sub reveal" style="margin-top: 18px;">Generación AI Native. Más de 10 años combinados en applied AI, producto, banca, fintech y consultoría aplicada.</p>
 
-    <div class="team-leads">
+    <div class="team-leads reveal">
       <div class="lead-card">
         <div class="lead-header">
           <img src="assets/julian.png" class="lead-photo" alt="Julian Hodari">
@@ -1148,7 +1369,7 @@ a { color: inherit; text-decoration: none; }
       </div>
     </div>
 
-    <div class="team-rest">
+    <div class="team-rest reveal">
       <div class="team-rest-h">El resto del equipo Fluency Labs</div>
       <div class="support-grid">
         <div class="support-card">
@@ -1181,10 +1402,12 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- ============ 8 · CTA ============ -->
-<section class="cta-section" id="cta">
-  <div class="cta-inner">
-    <h2 class="cta-title">¿Listo para comenzar <em>tu transformación</em>?</h2>
-    <a href="mailto:julian@fluencylabs.ai,gonzalo.gilges@fluencylabs.ai?subject=Practical%20AI%20Coaching%20%C2%B7%20Solicitud%20de%20informaci%C3%B3n&amp;body=Hola%20Julian%20y%20Gonzalo%2C%0A%0AHe%20visto%20la%20landing%20de%20Practical%20AI%20Coaching%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20el%20programa.%0A%0A%C2%BFPodemos%20coordinar%20una%20llamada%20esta%20semana%3F%0A%0ASaludos%2C" class="cta-button">Escríbenos</a>
+<section class="full alt" id="cta">
+  <div class="full-inner cta-inner">
+    <div class="eyebrow reveal" style="text-align: center;">Comenzá ahora</div>
+    <h2 class="cta-title reveal">¿Listo para comenzar <em>tu transformación</em>?</h2>
+    <a href="mailto:julian@fluencylabs.ai,gonzalo.gilges@fluencylabs.ai?subject=Practical%20AI%20Coaching%20%C2%B7%20Solicitud%20de%20informaci%C3%B3n&amp;body=Hola%20Julian%20y%20Gonzalo%2C%0A%0AHe%20visto%20la%20landing%20de%20Practical%20AI%20Coaching%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20el%20programa.%0A%0A%C2%BFPodemos%20coordinar%20una%20llamada%20esta%20semana%3F%0A%0ASaludos%2C" class="cta-button reveal">Escríbenos</a>
+    <div class="cta-foot reveal">Respondemos en menos de 24 horas, en cualquier zona horaria.</div>
   </div>
 </section>
 
@@ -1202,86 +1425,73 @@ const PILLAR_DATA = {
   sesiones: {
     title: 'Sesiones 1:1 semanales',
     tag: 'Teoría + práctica',
-    what: 'Una hora de trabajo focalizado con tu coach, todas las semanas. Online o presencial en Madrid, Barcelona o tus oficinas.',
+    what: 'Una hora de trabajo focalizado con tu coach, todas las semanas. Online o presencial en Madrid, Barcelona o tus oficinas. Londres con logística aparte.',
     how: 'Cada sesión combina un bloque conceptual breve y un bloque hands-on sobre tu material real. Salís siempre con algo construido y una tarea concreta para la semana.',
-    value: 'Es donde se instalan modelos mentales y se construyen las piezas que después corren solas. Sin esta hora, todo lo demás no compone.'
+    value: 'Es donde se instalan los modelos mentales y se construyen las piezas que después corren solas. Sin esta hora, todo lo demás no compone.'
   },
-  tailor: {
-    title: 'Construcción tailor-made',
-    tag: 'Diseñado para vos',
-    what: 'El programa se diseña desde tus casos de uso reales, no desde un currículum genérico.',
-    how: 'En las primeras sesiones mapeamos tu día a día, tus tareas críticas y tus prioridades. Esa data nutre la elección de Tracks, ejemplos y construcciones que vas a hacer.',
-    value: 'Lo que aprendés y construís son piezas que ya tienen un lugar en tu trabajo desde el primer minuto.'
-  },
-  vivo: {
-    title: 'Construcción en vivo',
-    tag: 'Material real',
-    what: 'No mostramos demos. Construimos con vos sobre tu trabajo real, en tu pantalla y tus archivos.',
-    how: 'Cada concepto que se introduce se aterriza inmediatamente con un caso tuyo: un mail real, una presentación pendiente, una reunión de la semana próxima.',
-    value: 'Aprendés haciendo. Cada sesión te deja un avance concreto, no apuntes para revisar después.'
-  },
-  coaching: {
-    title: 'Coaching continuo',
-    tag: 'WhatsApp directo',
-    what: 'Tu coach disponible entre sesiones para preguntas puntuales, dudas técnicas o decisiones que aparecen en el día a día.',
-    how: 'Canal directo por WhatsApp. Sin tickets ni colas: si algo no te cierra durante la semana, lo resolvemos rápido para que no se trabe tu progreso.',
-    value: 'La transformación no espera al miércoles a las 7. El soporte continuo es lo que mantiene el ritmo entre sesiones.'
-  },
-  tracks: {
-    title: 'Fluency Labs Tracks',
-    tag: 'Biblioteca always-on',
-    what: 'Biblioteca on-demand con módulos por área de trabajo y acciones concretas. Disponible 24/7 mientras estés en el programa.',
-    how: 'Tracks como Web Development, Creative Content, gestión de agenda, comunicación o pipeline comercial. Profundizás cuando quieras, en el orden que tenga sentido para vos.',
-    value: 'Te permite ir más rápido cuando algo te interesa especialmente, sin depender solo de la cadencia semanal de las sesiones.'
+  construccion: {
+    title: 'Tailor-made + construcción en vivo',
+    tag: 'Tu material real',
+    what: 'El programa se diseña desde tus casos de uso. Después construimos juntos sobre tu trabajo real, no sobre demos.',
+    how: 'Mapeamos tu día a día, tus tareas críticas y tus prioridades. Esa data nutre los Tracks que elegimos. En cada sesión, los conceptos se aterrizan sobre un mail real, una presentación pendiente o una reunión próxima.',
+    value: 'Cada pieza que aprendés ya tiene un lugar en tu trabajo. No estudiás IA, transformás tu rol con ella.'
   },
   newsletter: {
     title: 'Newsletter Always-On',
-    tag: 'Estado del arte',
-    what: 'Newsletter privado con descubrimientos, herramientas y patrones relevantes para ejecutivos como vos.',
-    how: 'Curado por el equipo de Fluency Labs. Lectura corta, accionable, sin ruido. No es un boletín de noticias: es lo que tu coach te mandaría si te viera todos los días.',
+    tag: 'Estado del arte semanal',
+    what: 'Newsletter privado del equipo Fluency Labs con descubrimientos, herramientas y patrones relevantes para ejecutivos que están transformando sus organizaciones.',
+    how: 'Curado manualmente. Lectura corta, accionable, sin ruido. No es un boletín de noticias: es lo que tu coach te mandaría si te viera todos los días.',
     value: 'Te mantiene actualizado en una industria que se mueve cada semana, sin que tengas que perseguirla vos mismo.'
   },
-  equipo: {
-    title: 'Equipo Fluency Labs',
-    tag: 'Detrás de tu coach',
-    what: 'Tu coach lleva el caso, pero detrás hay un equipo completo: Head of AI, Americas Director, Strategy, Investor Advisors.',
-    how: 'Cuando aparece una decisión técnica compleja, una oportunidad de negocio fuera de scope o un caso que escala, el equipo entero se activa para vos.',
-    value: 'Trabajás con un solo interlocutor pero accedés a la profundidad y experiencia de toda la firma. No es advisory de un consultor solo.'
+  tracks: {
+    title: 'Fluency Labs Tracks',
+    tag: 'Videos especializados',
+    what: 'Biblioteca de videos especializados por área de trabajo y acciones concretas. Disponible 24/7 mientras seas cliente del programa.',
+    how: 'Cada Track profundiza en un área (Investor Relations, M&A, Board & Governance, Memos, Communications, Portfolio Monitoring) con contenido grabado por nuestro equipo. Lo ves a tu ritmo, en el orden que tenga sentido para tu agenda.',
+    value: 'Te permite ir más rápido cuando algo te interesa especialmente, sin depender solo de la cadencia semanal de las sesiones.'
   }
 };
 
 /* ============ DATA · TRACKS ============ */
 const TRACK_DATA = {
-  agenda: {
-    title: 'Tu agenda diaria',
-    desc: 'Construimos un sistema que prioriza tu inbox, prepara tu briefing matinal y arma drafts en tu voz. Cada paso lo construís con tu coach, sobre tu material real.'
+  ir: {
+    title: 'Investor Relations & Reporting',
+    desc: 'Construimos sistemas que preparan reportings trimestrales a LPs, sintetizan performance en tu narrativa, y arman drafts de IR letters listas para revisar. Trabajamos sobre tus templates, data real y feedback histórico de inversores.'
   },
-  reuniones: {
-    title: 'Reuniones críticas',
-    desc: 'Preparación automática antes de cada reunión clave: histórico, agenda, métricas y talking points. Y un follow-up estructurado al día siguiente.'
+  ma: {
+    title: 'M&A & Due Diligence',
+    desc: 'Workflows que aceleran screening de targets, sintetizan data rooms, extraen cláusulas críticas de docs legales, y producen memos de due diligence con referencias trazables a fuente. Pensado para deal teams chicos con timing apretado.'
   },
-  comercial: {
-    title: 'Pipeline comercial',
-    desc: 'Inteligencia activa sobre cuentas y oportunidades: status comercial, próximos pasos, alertas de relaciones dormidas y propuestas en tu voz.'
+  board: {
+    title: 'Board & Governance',
+    desc: 'Preparación automatizada de board packs y governance reports: histórico relevante, métricas trimestrales, agenda con sub-temas, talking points en tu voz. Pre-meeting brief listo 24hs antes de cada reunión.'
   },
-  creative: {
-    title: 'Creative Content',
-    desc: 'Sistemas de creación de contenido en tu voz: comunicaciones internas, posts, presentaciones, materiales de marketing, todo en tu tono y estilo.'
+  memos: {
+    title: 'Investment Memos & Theses',
+    desc: 'Generación estructurada de investment memos siguiendo tu metodología: scoring por criterios, validación contra red flags propios, output con confidence levels y citations. Tu thesis writing escala sin perder rigor.'
   },
-  web: {
-    title: 'Web Development',
-    desc: 'Construcción asistida de landings, micrositios y herramientas internas. Pasás de tener una idea a tener la pieza online en horas, no semanas.'
+  comms: {
+    title: 'Strategic Communications',
+    desc: 'Sistemas para tus comunicaciones críticas: mails al board, posts a stakeholders, mensajes internos, prensa, eventos. Coherente con tu voz, escalable a tu cadencia, listo para revisar y firmar.'
   },
-  comunicacion: {
-    title: 'Comunicación',
-    desc: 'Sistemas para tus comunicaciones críticas: mails a board, posts en redes, mensajes a equipo, prensa. Coherente con tu voz, escalable a tu cadencia.'
+  portfolio: {
+    title: 'Portfolio Monitoring',
+    desc: 'Monitoring activo de portfolio: KPIs trackeados, alertas de desvíos, comparativas trimestrales, briefs por compañía antes de cada call con management. Inteligencia activa, no reportes pasivos.'
   }
 };
 
 /* ============ INTERACCIÓN PILARES ============ */
 const detailPanel = document.getElementById('detailPanel');
 const pillars = document.querySelectorAll('.pillar');
+const spokes = document.querySelectorAll('.orbital-spokes line');
 let pinnedPillar = null;
+
+function activateSpoke(key) {
+  spokes.forEach(s => s.classList.toggle('active', s.dataset.spoke === key));
+}
+function deactivateSpokes() {
+  spokes.forEach(s => s.classList.remove('active'));
+}
 
 function renderPillar(key) {
   const d = PILLAR_DATA[key];
@@ -1300,22 +1510,34 @@ function clearPillarsActive() {
 }
 
 function resetPillarPanel() {
-  detailPanel.innerHTML = '<p class="detail-empty">Pasá el cursor por cualquier pilar del diagrama para ver el detalle. Hacé click para fijarlo.</p>';
+  detailPanel.innerHTML = '<p class="detail-empty">Pasá el cursor por cualquier pilar del diagrama para ver el detalle. Hacé click para fijarlo y leer con calma.</p>';
 }
 
 pillars.forEach(p => {
   const key = p.getAttribute('data-pillar');
-  p.addEventListener('mouseenter', () => { if (pinnedPillar === null) renderPillar(key); });
-  p.addEventListener('mouseleave', () => { if (pinnedPillar === null) resetPillarPanel(); });
+  p.addEventListener('mouseenter', () => {
+    activateSpoke(key);
+    if (pinnedPillar === null) renderPillar(key);
+  });
+  p.addEventListener('mouseleave', () => {
+    if (pinnedPillar === null) {
+      deactivateSpokes();
+      resetPillarPanel();
+    } else {
+      activateSpoke(pinnedPillar);
+    }
+  });
   p.addEventListener('click', () => {
     if (pinnedPillar === key) {
       pinnedPillar = null;
       clearPillarsActive();
+      deactivateSpokes();
       resetPillarPanel();
     } else {
       pinnedPillar = key;
       clearPillarsActive();
       p.classList.add('active');
+      activateSpoke(key);
       renderPillar(key);
     }
   });
@@ -1326,14 +1548,13 @@ const trackDetail = document.getElementById('trackDetail');
 const trackDetailTitle = document.getElementById('trackDetailTitle');
 const trackDetailDesc = document.getElementById('trackDetailDesc');
 const tracks = document.querySelectorAll('.track:not(.empty)');
-let activeTrack = 'agenda';
+let activeTrack = 'ir';
 
 function renderTrack(key) {
   const d = TRACK_DATA[key];
   if (!d) return;
   trackDetailTitle.textContent = d.title;
   trackDetailDesc.textContent = d.desc;
-  trackDetail.classList.add('show');
   tracks.forEach(t => t.classList.toggle('active', t.dataset.track === key));
   activeTrack = key;
 }
@@ -1342,13 +1563,12 @@ tracks.forEach(t => {
   t.addEventListener('click', () => renderTrack(t.dataset.track));
   t.addEventListener('mouseenter', () => renderTrack(t.dataset.track));
 });
-
 renderTrack(activeTrack);
 
-/* ============ MOBILE LAYOUT FALLBACK ============ */
+/* ============ MOBILE ORBITAL FALLBACK ============ */
 function applyMobileOrbital() {
   const wrap = document.getElementById('orbitalWrap');
-  const isMobile = window.matchMedia('(max-width: 980px)').matches;
+  const isMobile = window.matchMedia('(max-width: 720px)').matches;
   if (isMobile && !wrap.classList.contains('is-mobile')) {
     wrap.classList.add('is-mobile');
     let mobileGrid = wrap.querySelector('.pillars-mobile');
@@ -1362,30 +1582,26 @@ function applyMobileOrbital() {
     wrap.classList.remove('is-mobile');
     const mobileGrid = wrap.querySelector('.pillars-mobile');
     if (mobileGrid) {
-      const orbitedPositions = [
-        { top: '10%', left: '50%' },
-        { top: '28%', left: '81%' },
-        { top: '69%', left: '90%' },
-        { top: '93%', left: '63%' },
-        { top: '93%', left: '37%' },
-        { top: '69%', left: '10%' },
-        { top: '28%', left: '19%' }
-      ];
-      const ps = mobileGrid.querySelectorAll('.pillar');
-      ps.forEach((p, i) => {
-        if (orbitedPositions[i]) {
-          p.style.top = orbitedPositions[i].top;
-          p.style.left = orbitedPositions[i].left;
-        }
-        wrap.appendChild(p);
-      });
+      const ps = Array.from(mobileGrid.children);
+      ps.forEach(p => wrap.appendChild(p));
       mobileGrid.remove();
     }
   }
 }
-
 applyMobileOrbital();
 window.addEventListener('resize', applyMobileOrbital);
+
+/* ============ REVEAL ON SCROLL ============ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
