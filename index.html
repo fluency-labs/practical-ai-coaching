@@ -869,20 +869,21 @@ a { color: inherit; text-decoration: none; }
   padding: 44px;
 }
 .case-visual {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--soft-2);
+  color: var(--ink);
   padding: 28px 28px 24px;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(89, 115, 113, 0.18);
 }
 .case-visual::before {
   content: "";
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(176, 205, 162, 0.16), transparent 70%);
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(176, 205, 162, 0.45), transparent 70%);
   pointer-events: none;
 }
 .case-visual-h {
@@ -890,24 +891,25 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--green);
+  color: var(--teal);
   margin-bottom: 18px;
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 .case-visual-h::before {
   content: "";
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 4px rgba(176, 205, 162, 0.2);
+  background: var(--teal);
+  box-shadow: 0 0 0 4px rgba(89, 115, 113, 0.18);
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(176, 205, 162, 0.2); }
-  50% { box-shadow: 0 0 0 8px rgba(176, 205, 162, 0.0); }
+  0%, 100% { box-shadow: 0 0 0 4px rgba(89, 115, 113, 0.18); }
+  50% { box-shadow: 0 0 0 9px rgba(89, 115, 113, 0); }
 }
 
 .flow-steps {
@@ -934,23 +936,23 @@ a { color: inherit; text-decoration: none; }
   height: 11px;
   border-radius: 50%;
   background: var(--teal);
-  border: 2px solid var(--bg);
+  border: 2px solid var(--soft-2);
   box-sizing: content-box;
   position: relative;
   z-index: 2;
   flex-shrink: 0;
   transition: transform 0.3s ease, background 0.3s ease;
 }
-.flow-step.discern .flow-dot { background: var(--green); }
-.flow-step.human .flow-dot { background: var(--green); border-color: var(--soft); }
+.flow-step.discern .flow-dot { background: var(--green); border-color: var(--soft-2); }
+.flow-step.human .flow-dot { background: var(--green); border-color: var(--soft-2); }
 .flow-step.accent .flow-dot {
-  background: var(--green);
-  box-shadow: 0 0 0 4px rgba(176, 205, 162, 0.18);
+  background: var(--teal);
+  box-shadow: 0 0 0 4px rgba(89, 115, 113, 0.18);
 }
 .flow-bar {
   flex: 1;
   width: 1.5px;
-  background: linear-gradient(to bottom, rgba(176, 205, 162, 0.4) 0%, rgba(176, 205, 162, 0.4) 50%, transparent 50%);
+  background: linear-gradient(to bottom, rgba(89, 115, 113, 0.45) 0%, rgba(89, 115, 113, 0.45) 50%, transparent 50%);
   background-size: 1.5px 8px;
   margin-top: 4px;
   margin-bottom: -4px;
@@ -991,27 +993,20 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   padding: 3px 8px;
   margin-bottom: 6px;
-  border: 1px solid currentColor;
-  color: var(--green);
-  opacity: 0.9;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  background: var(--bg);
 }
-.flow-step.discern .flow-tag { color: var(--green); background: rgba(176, 205, 162, 0.12); border-color: rgba(176, 205, 162, 0.4); }
-.flow-step.human .flow-tag { color: var(--green); background: rgba(176, 205, 162, 0.12); border-color: rgba(176, 205, 162, 0.4); }
-.flow-step.accent .flow-tag { color: var(--ink); background: var(--green); border-color: var(--green); }
+.flow-step.discern .flow-tag { color: var(--ink); background: var(--green); border-color: var(--green); }
+.flow-step.human .flow-tag { color: var(--ink); background: var(--green); border-color: var(--green); }
+.flow-step.accent .flow-tag { color: var(--bg); background: var(--teal); border-color: var(--teal); }
 
 .flow-title {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
-  margin-bottom: 4px;
-  color: var(--bg);
+  margin-bottom: 0;
+  color: var(--ink);
   line-height: 1.3;
-}
-.flow-sub {
-  font-size: 11.5px;
-  font-weight: 300;
-  line-height: 1.55;
-  color: var(--bg);
-  opacity: 0.65;
 }
 
 .case-cta {
@@ -1729,8 +1724,7 @@ a { color: inherit; text-decoration: none; }
             </div>
             <div class="flow-content">
               <span class="flow-tag">Trigger automático</span>
-              <div class="flow-title">Agente nocturno · cron</div>
-              <div class="flow-sub">Se activa cada noche, sin que nadie abra la app.</div>
+              <div class="flow-title">Agente nocturno</div>
             </div>
           </div>
           <div class="flow-step discern">
@@ -1741,7 +1735,6 @@ a { color: inherit; text-decoration: none; }
             <div class="flow-content">
               <span class="flow-tag">Discernimiento</span>
               <div class="flow-title">¿Hay sesión nueva del programa?</div>
-              <div class="flow-sub">Cruza calendario y transcripciones contra el roster del Advisory.</div>
             </div>
           </div>
           <div class="flow-step">
@@ -1752,7 +1745,6 @@ a { color: inherit; text-decoration: none; }
             <div class="flow-content">
               <span class="flow-tag">Procedimiento</span>
               <div class="flow-title">Lee la sesión y prepara el draft</div>
-              <div class="flow-sub">Aplica template, voz y reglas del cliente. Adjunta material.</div>
             </div>
           </div>
           <div class="flow-step">
@@ -1763,7 +1755,6 @@ a { color: inherit; text-decoration: none; }
             <div class="flow-content">
               <span class="flow-tag">Acción del agente</span>
               <div class="flow-title">Crea el draft en Gmail</div>
-              <div class="flow-sub">Listo en la cuenta del coach a la mañana siguiente.</div>
             </div>
           </div>
           <div class="flow-step human">
@@ -1773,15 +1764,12 @@ a { color: inherit; text-decoration: none; }
             <div class="flow-content">
               <span class="flow-tag">Paso humano</span>
               <div class="flow-title">El coach revisa y envía</div>
-              <div class="flow-sub">La firma siempre es tuya. La rutina, automática.</div>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <div class="eyebrow" style="margin-bottom: 12px;">Cliente · Mes 1</div>
-        <h3 style="font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; line-height: 1.2; margin-bottom: 16px;">Un memo nocturno que <em style="font-style: italic; color: var(--teal); font-weight: 400;">se manda solo.</em></h3>
-        <p style="font-size: 15px; font-weight: 300; line-height: 1.65; opacity: 0.82;">Cada pieza la trabajamos en sesión: cómo se piensa el problema, qué herramientas usar, cómo darle contexto, cómo validar el output. La firma sigue siendo del coach. La rutina, automática.</p>
+        <p style="font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--ink); opacity: 0.88;">Agente que analiza las sesiones y prepara un <em style="font-style: italic; color: var(--teal); opacity: 1;">memorandum automático al día siguiente</em> de la sesión. Se ocupa de trackear lo visto, las dudas, las tareas y los próximos pasos para luego redactar un correo de seguimiento hiper-eficiente y personalizado a nuestros clientes tras cada sesión.</p>
         <a href="https://fluency-labs.github.io/memo-session-diagram/" class="case-cta" target="_blank" rel="noopener">Ver el diagrama interactivo &rarr;</a>
       </div>
     </div>
