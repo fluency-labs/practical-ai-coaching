@@ -369,16 +369,23 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============= ABORDAJE · ORBITAL ============= */
+#abordaje.full {
+  padding-top: calc(var(--nav-h) + 28px);
+  padding-bottom: 36px;
+}
+#abordaje .t-section {
+  font-size: clamp(24px, 3vw, 36px);
+}
 .abordaje-head {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 48px;
+  grid-template-columns: 1fr 300px;
+  gap: 36px;
   align-items: end;
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
-.abordaje-head .t-section { max-width: 720px; }
+.abordaje-head .t-section { max-width: 660px; }
 .abordaje-meta {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 300;
   line-height: 1.55;
   opacity: 0.75;
@@ -388,8 +395,8 @@ a { color: inherit; text-decoration: none; }
 
 .abordaje-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) 380px;
-  gap: 56px;
+  grid-template-columns: minmax(0, 1.15fr) 340px;
+  gap: 40px;
   align-items: stretch;
 }
 
@@ -397,7 +404,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-width: 640px;
+  max-width: 540px;
   margin: 0 auto;
 }
 
@@ -452,8 +459,8 @@ a { color: inherit; text-decoration: none; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
+  width: 168px;
+  height: 168px;
   border-radius: 50%;
   background: var(--ink);
   color: var(--bg);
@@ -462,12 +469,12 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 22px;
+  padding: 18px;
   z-index: 3;
   box-shadow:
-    0 0 0 8px rgba(89, 115, 113, 0.10),
-    0 0 0 18px rgba(89, 115, 113, 0.05),
-    0 18px 50px rgba(10, 18, 42, 0.35);
+    0 0 0 7px rgba(89, 115, 113, 0.10),
+    0 0 0 16px rgba(89, 115, 113, 0.05),
+    0 14px 42px rgba(10, 18, 42, 0.32);
 }
 .exec-center::before {
   content: "";
@@ -482,42 +489,42 @@ a { color: inherit; text-decoration: none; }
 .exec-mark {
   font-family: 'Merriweather', serif;
   font-style: italic;
-  font-size: 28px;
+  font-size: 24px;
   color: var(--green);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   font-weight: 400;
 }
 .exec-eyebrow {
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--green);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .exec-title {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.22;
   letter-spacing: -0.01em;
 }
 .exec-sub {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 300;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.55;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .pillar {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 200px;
+  width: 178px;
   background: var(--bg);
   border: 1.5px solid rgba(10,18,42,0.14);
-  padding: 16px 18px;
+  padding: 14px 16px;
   cursor: pointer;
   transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.5, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
   z-index: 1;
@@ -534,27 +541,27 @@ a { color: inherit; text-decoration: none; }
 .pillar-num {
   font-family: 'Merriweather', serif;
   font-style: italic;
-  font-size: 30px;
+  font-size: 26px;
   color: var(--green);
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   font-weight: 400;
 }
 .pillar-title {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.005em;
 }
 .pillar-tag {
   display: block;
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--teal);
   opacity: 0.75;
-  margin-top: 8px;
+  margin-top: 7px;
 }
 
 /* 4 posiciones cardinales en la misma órbita · centros equidistantes */
@@ -580,7 +587,7 @@ a { color: inherit; text-decoration: none; }
 .detail-panel {
   background: var(--bg);
   border: 1px solid rgba(10,18,42,0.08);
-  padding: 32px 30px;
+  padding: 24px 24px;
   position: sticky;
   top: 80px;
   align-self: stretch;
@@ -588,7 +595,7 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
 }
 .detail-empty {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300;
   font-style: italic;
   opacity: 0.55;
@@ -596,36 +603,36 @@ a { color: inherit; text-decoration: none; }
 }
 .detail-tag {
   display: inline-block;
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--teal);
   background: var(--soft);
-  padding: 5px 11px;
-  margin-bottom: 16px;
+  padding: 4px 10px;
+  margin-bottom: 12px;
   width: fit-content;
 }
 .detail-title {
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 700;
   line-height: 1.22;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
-.detail-block { margin-bottom: 18px; }
+.detail-block { margin-bottom: 14px; }
 .detail-block:last-child { margin-bottom: 0; }
 .detail-h {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 .detail-p {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 @media (max-width: 1080px) {
@@ -853,33 +860,160 @@ a { color: inherit; text-decoration: none; }
 /* ============= CASO VIVO ============= */
 .case-card {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1.05fr 1fr;
   gap: 40px;
-  align-items: center;
+  align-items: stretch;
   margin-top: 44px;
   background: var(--bg);
   border: 1px solid rgba(10,18,42,0.08);
   padding: 44px;
 }
 .case-visual {
-  background: var(--soft-2);
-  padding: 32px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 28px 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.case-visual::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(176, 205, 162, 0.16), transparent 70%);
+  pointer-events: none;
+}
+.case-visual-h {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.case-visual-h::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(176, 205, 162, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(176, 205, 162, 0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(176, 205, 162, 0.0); }
+}
+
+.flow-steps {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  font-family: 'Menlo', 'Monaco', monospace;
-  font-size: 12px;
-  line-height: 1.5;
+  gap: 0;
+  position: relative;
 }
-.case-flow-node {
-  background: var(--bg);
-  border: 1px solid rgba(10,18,42,0.12);
-  padding: 12px 14px;
+.flow-step {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 14px;
+  position: relative;
+}
+.flow-rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6px;
+}
+.flow-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 2px solid var(--bg);
+  box-sizing: content-box;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.flow-step.discern .flow-dot { background: var(--green); }
+.flow-step.human .flow-dot { background: var(--green); border-color: var(--soft); }
+.flow-step.accent .flow-dot {
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(176, 205, 162, 0.18);
+}
+.flow-bar {
+  flex: 1;
+  width: 1.5px;
+  background: linear-gradient(to bottom, rgba(176, 205, 162, 0.4) 0%, rgba(176, 205, 162, 0.4) 50%, transparent 50%);
+  background-size: 1.5px 8px;
+  margin-top: 4px;
+  margin-bottom: -4px;
+  min-height: 22px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.case-card.entered .flow-bar { opacity: 1; transform: scaleY(1); }
+.case-card.entered .flow-step:nth-child(1) .flow-bar { transition-delay: 0.3s; }
+.case-card.entered .flow-step:nth-child(2) .flow-bar { transition-delay: 0.55s; }
+.case-card.entered .flow-step:nth-child(3) .flow-bar { transition-delay: 0.8s; }
+.case-card.entered .flow-step:nth-child(4) .flow-bar { transition-delay: 1.05s; }
+
+.flow-step:last-child .flow-bar { display: none; }
+
+.flow-content {
+  padding-bottom: 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.case-card.entered .flow-content { opacity: 1; transform: translateY(0); }
+.case-card.entered .flow-step:nth-child(1) .flow-content { transition-delay: 0.15s; }
+.case-card.entered .flow-step:nth-child(2) .flow-content { transition-delay: 0.40s; }
+.case-card.entered .flow-step:nth-child(3) .flow-content { transition-delay: 0.65s; }
+.case-card.entered .flow-step:nth-child(4) .flow-content { transition-delay: 0.90s; }
+.case-card.entered .flow-step:nth-child(5) .flow-content { transition-delay: 1.15s; }
+
+.flow-step:last-child .flow-content { padding-bottom: 0; }
+
+.flow-tag {
+  display: inline-block;
+  font-size: 8.5px;
   font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  margin-bottom: 6px;
+  border: 1px solid currentColor;
+  color: var(--green);
+  opacity: 0.9;
 }
-.case-flow-node.accent { background: var(--teal); color: var(--bg); border-color: var(--teal); }
-.case-flow-node.human { background: var(--soft); border-color: var(--green); }
-.case-arrow { text-align: center; color: var(--teal); opacity: 0.55; font-size: 14px; }
+.flow-step.discern .flow-tag { color: var(--green); background: rgba(176, 205, 162, 0.12); border-color: rgba(176, 205, 162, 0.4); }
+.flow-step.human .flow-tag { color: var(--green); background: rgba(176, 205, 162, 0.12); border-color: rgba(176, 205, 162, 0.4); }
+.flow-step.accent .flow-tag { color: var(--ink); background: var(--green); border-color: var(--green); }
+
+.flow-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--bg);
+  line-height: 1.3;
+}
+.flow-sub {
+  font-size: 11.5px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--bg);
+  opacity: 0.65;
+}
+
 .case-cta {
   display: inline-flex;
   align-items: center;
@@ -1584,21 +1718,71 @@ a { color: inherit; text-decoration: none; }
     <h2 class="t-section reveal">Así se ve cuando todo <em>está orquestado.</em></h2>
     <p class="t-sub reveal" style="margin-top: 18px;">Uno de nuestros clientes recibe cada lunes a las 7am un memo de la sesión anterior, con tareas y material adjunto. Lo escribió un agente. Lo construyó él durante el primer mes del programa.</p>
 
-    <div class="case-card reveal">
-      <div class="case-visual" aria-hidden="true">
-        <div class="case-flow-node accent">Agente nocturno · cron</div>
-        <div class="case-arrow">↓</div>
-        <div class="case-flow-node">Lee la sesión y prepara el draft</div>
-        <div class="case-arrow">↓</div>
-        <div class="case-flow-node">Crea el draft en Gmail</div>
-        <div class="case-arrow">↓</div>
-        <div class="case-flow-node human">El coach revisa y envía</div>
+    <div class="case-card reveal" id="caseCard">
+      <div class="case-visual">
+        <div class="case-visual-h">El agente, paso a paso</div>
+        <div class="flow-steps">
+          <div class="flow-step accent">
+            <div class="flow-rail">
+              <div class="flow-dot"></div>
+              <div class="flow-bar"></div>
+            </div>
+            <div class="flow-content">
+              <span class="flow-tag">Trigger automático</span>
+              <div class="flow-title">Agente nocturno · cron</div>
+              <div class="flow-sub">Se activa cada noche, sin que nadie abra la app.</div>
+            </div>
+          </div>
+          <div class="flow-step discern">
+            <div class="flow-rail">
+              <div class="flow-dot"></div>
+              <div class="flow-bar"></div>
+            </div>
+            <div class="flow-content">
+              <span class="flow-tag">Discernimiento</span>
+              <div class="flow-title">¿Hay sesión nueva del programa?</div>
+              <div class="flow-sub">Cruza calendario y transcripciones contra el roster del Advisory.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-rail">
+              <div class="flow-dot"></div>
+              <div class="flow-bar"></div>
+            </div>
+            <div class="flow-content">
+              <span class="flow-tag">Procedimiento</span>
+              <div class="flow-title">Lee la sesión y prepara el draft</div>
+              <div class="flow-sub">Aplica template, voz y reglas del cliente. Adjunta material.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-rail">
+              <div class="flow-dot"></div>
+              <div class="flow-bar"></div>
+            </div>
+            <div class="flow-content">
+              <span class="flow-tag">Acción del agente</span>
+              <div class="flow-title">Crea el draft en Gmail</div>
+              <div class="flow-sub">Listo en la cuenta del coach a la mañana siguiente.</div>
+            </div>
+          </div>
+          <div class="flow-step human">
+            <div class="flow-rail">
+              <div class="flow-dot"></div>
+            </div>
+            <div class="flow-content">
+              <span class="flow-tag">Paso humano</span>
+              <div class="flow-title">El coach revisa y envía</div>
+              <div class="flow-sub">La firma siempre es tuya. La rutina, automática.</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <div class="eyebrow" style="margin-bottom: 12px;">Cliente · Mes 1</div>
         <h3 style="font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; line-height: 1.2; margin-bottom: 16px;">Un memo nocturno que <em style="font-style: italic; color: var(--teal); font-weight: 400;">se manda solo.</em></h3>
         <p style="font-size: 15px; font-weight: 300; line-height: 1.65; opacity: 0.82;">Cada pieza la trabajamos en sesión: cómo se piensa el problema, qué herramientas usar, cómo darle contexto, cómo validar el output. La firma sigue siendo del coach. La rutina, automática.</p>
-        <a href="../../Advisory%20Program/Clientes/1.%20Douglas%20Medrisch/3.%20Sessions/S3/diagrama-memo-session.html" class="case-cta" target="_blank" rel="noopener">Ver el diagrama interactivo &rarr;</a>
+        <a href="https://fluency-labs.github.io/memo-session-diagram/" class="case-cta" target="_blank" rel="noopener">Ver el diagrama interactivo &rarr;</a>
       </div>
     </div>
   </div>
@@ -1609,7 +1793,7 @@ a { color: inherit; text-decoration: none; }
   <div class="full-inner">
     <div class="eyebrow reveal">Tener AI no es lo mismo que practicar AI</div>
     <h2 class="t-section reveal">Una licencia no transforma. <em>La práctica sí.</em></h2>
-    <p class="t-sub reveal" style="margin-top: 18px;">Sin método, AI plateauea como un buscador con esteroides y captura menos del 10% de su valor. La diferencia no está en la herramienta. Está en cómo la integraste a tu sistema operativo.</p>
+    <p class="t-sub reveal" style="margin-top: 18px;">Sin método, AI se estanca como un buscador con esteroides y captura menos del 10% de su valor. La diferencia no está en la herramienta. Está en cómo la integraste a tu sistema operativo.</p>
 
     <div class="gap-grid reveal-stagger">
       <div class="gap-card before">
@@ -1619,16 +1803,16 @@ a { color: inherit; text-decoration: none; }
         <p class="gap-desc">Primer draft genérico. Cinco rondas de edición para que suene a vos. Cada chat re-explica el mismo contexto. Mismo esfuerzo, cada trimestre.</p>
       </div>
       <div class="gap-card after">
-        <div class="gap-tag">Después del programa</div>
-        <div class="gap-title">La misma carta, drafteada en un día</div>
+        <div class="gap-tag">Gracias al programa</div>
+        <div class="gap-title">La misma carta, lista en un día</div>
         <div class="gap-num">1<small>día</small></div>
-        <p class="gap-desc">Tu voz ya está adentro. Referencia la data correcta. Conoce a la firma, a los LPs, tus cartas anteriores. Una vuelta de edición ligera y se manda.</p>
+        <p class="gap-desc">Tu voz ya está adentro. Referencia la data correcta. Conoce a la firma, a los LPs y tus cartas anteriores. Una vuelta de edición ligera y se envía.</p>
       </div>
     </div>
 
     <div class="gap-strip reveal">
       <span class="gap-strip-tag">El mismo patrón se repite</span>
-      <span class="gap-strip-text">en cada acción crítica de tu agenda. <strong>Briefs de management:</strong> de días a minutos, con citations. <strong>Reportings mensuales:</strong> auto-drafteados desde tu data, en tu formato. <strong>Briefs de board y reuniones clave:</strong> listos antes de que los pidas.</span>
+      <span class="gap-strip-text">en cada acción crítica de tu agenda. <strong>Briefs de management:</strong> de días a minutos, con referencias trazables. <strong>Reportings mensuales:</strong> redactados desde tu data, en tu formato. <strong>Briefs de board y reuniones clave:</strong> listos antes de que los pidas.</span>
     </div>
   </div>
 </section>
@@ -2059,6 +2243,21 @@ updateProgress();
     });
   }, { threshold: 0.25 });
   oIo.observe(wrap);
+})();
+
+/* ============ CASE CARD · ENTRY ANIMATION ============ */
+(function caseCardEntry() {
+  const card = document.getElementById('caseCard');
+  if (!card) return;
+  const cIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        card.classList.add('entered');
+        cIo.unobserve(card);
+      }
+    });
+  }, { threshold: 0.25 });
+  cIo.observe(card);
 })();
 
 /* ============ MAGNETIC CTA ============ */
