@@ -188,7 +188,74 @@ a { color: inherit; text-decoration: none; }
   50% { transform: translateY(5px); }
 }
 
-/* ============= MOMENTO · cards ============= */
+/* ============= MOMENTO · concept cards ============= */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 56px;
+}
+.concept-card {
+  background: var(--bg);
+  border: 1px solid rgba(10,18,42,0.08);
+  padding: 36px 30px 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s ease;
+}
+.concept-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--teal);
+  box-shadow: 0 18px 40px rgba(10,18,42,0.08);
+}
+.concept-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: var(--green);
+  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+.concept-card:hover::before { width: 100%; }
+.concept-num {
+  font-family: 'Merriweather', serif;
+  font-style: italic;
+  font-size: 42px;
+  color: var(--green);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+.concept-eyebrow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+.concept-title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.28;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.concept-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.62;
+  opacity: 0.78;
+}
+@media (max-width: 980px) {
+  .concept-grid { grid-template-columns: 1fr; }
+}
+
+/* ============= MOMENTO · stat cards ============= */
 .momento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1086,12 +1153,41 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
-<!-- ============ 2 · EL MOMENTO ============ -->
+<!-- ============ 2 · EL MOMENTO · CONCEPTUAL ============ -->
 <section class="full alt" id="momento">
   <div class="full-inner">
     <div class="eyebrow reveal">El momento</div>
     <h2 class="t-section reveal">El desafío no es adoptar IA en lo que ya funciona. <em>Es rediseñar cómo funciona tu negocio en esta nueva era.</em></h2>
-    <p class="t-sub reveal" style="margin-top: 18px;">El último estudio global de IBM sobre 2.000 CEOs (mayo 2026) confirma que el cambio ya no es tecnológico. Es estructural y profundamente ejecutivo.</p>
+    <p class="t-sub reveal" style="margin-top: 18px;">El cambio no es tecnológico. Es estructural y profundamente ejecutivo.</p>
+
+    <div class="concept-grid reveal-stagger">
+      <div class="concept-card">
+        <div class="concept-num">01</div>
+        <div class="concept-eyebrow">El valor se redibuja</div>
+        <h3 class="concept-title">Lo que era trabajo experto, ahora lo hace un agente.</h3>
+        <p class="concept-desc">Lo que llevaba semanas se resuelve en horas. La IA está cambiando dónde se crea el valor en tu negocio y a qué velocidad se mueve.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-num">02</div>
+        <div class="concept-eyebrow">Tu rol se redefine</div>
+        <h3 class="concept-title">Pasás de tomar decisiones a diseñar el sistema que las toma.</h3>
+        <p class="concept-desc">Qué decidís vos, qué un agente, qué tu equipo. Tu agudeza estratégica vale más que nunca, aplicada a otro nivel.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-num">03</div>
+        <div class="concept-eyebrow">El liderazgo cambia</div>
+        <h3 class="concept-title">Si vos no liderás el aprendizaje, cada uno improvisa por su lado.</h3>
+        <p class="concept-desc">Tu equipo entero está aprendiendo a trabajar con IA, lo veas o no. El estándar de IA en tu organización lo fijás vos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · EL MOMENTO · DATA ============ -->
+<section class="full">
+  <div class="full-inner">
+    <div class="eyebrow reveal">El momento · Lo que dicen los datos</div>
+    <h2 class="t-section reveal">Tus pares ya están moviendo la aguja. <em>Las cifras que están dibujando el nuevo estándar.</em></h2>
 
     <div class="momento-grid reveal-stagger">
       <div class="stat-card">
