@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluency Labs · Diagrama Retail Upselling · Priorización en vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #F6F8F2;
+  --ink: #0A122A;
+  --green: #B0CDA2;
+  --teal: #597371;
+  --soft: #DFEAD7;
+  --danger: #b04141;
+}
+
+html, body {
+  font-family: 'Merriweather', Georgia, serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+}
+
+body {
+  padding: 36px 48px 60px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 36px;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(10,18,42,0.08);
+  margin-bottom: 8px;
+}
+
+.header-logo { height: 36px; width: auto; display: block; }
+
+.title-block { text-align: right; }
+.title-block .label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 4px;
+}
+.title-block .ttl { font-size: 18px; font-weight: 700; }
+
+/* Main canvas */
+.canvas {
+  background: var(--bg);
+}
+
+.canvas-intro {
+  background: var(--soft);
+  border-left: 2px solid var(--teal);
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.canvas-intro strong { font-weight: 700; }
+
+/* Categories grid */
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.category {
+  background: var(--bg);
+  border: 1px solid rgba(10,18,42,0.08);
+  padding: 22px 24px;
+}
+
+.category-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(10,18,42,0.06);
+}
+
+.category-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.category-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+  opacity: 0.7;
+}
+
+/* Items */
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  border: 1px solid rgba(10,18,42,0.07);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: var(--bg);
+  position: relative;
+}
+.item:hover {
+  border-color: var(--teal);
+  background: rgba(89,115,113,0.04);
+}
+.item.priorized {
+  background: var(--soft);
+  border-color: var(--green);
+}
+.item.priorized:hover {
+  background: #cee0c1;
+}
+
+.item-rank {
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid rgba(10,18,42,0.15);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.item.priorized .item-rank {
+  background: var(--teal);
+  color: var(--bg);
+  border-color: var(--teal);
+}
+
+.item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.item-comment-box {
+  margin-top: 8px;
+  display: none;
+}
+.item-comment-box.active {
+  display: block;
+}
+.item-comment-input {
+  width: 100%;
+  padding: 6px 10px;
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 12px;
+  line-height: 1.5;
+  border: 1px solid rgba(10,18,42,0.15);
+  background: rgba(246,248,242,1);
+  color: var(--ink);
+  resize: vertical;
+  min-height: 32px;
+  outline: none;
+}
+.item-comment-input:focus { border-color: var(--teal); }
+
+.item-comment-saved {
+  margin-top: 4px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--teal);
+  font-style: italic;
+  display: none;
+}
+.item-comment-saved.visible { display: block; }
+
+.item-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.item-comment-toggle,
+.item-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(10,18,42,0.4);
+  font-size: 12px;
+  padding: 2px 4px;
+  margin-top: 2px;
+  transition: color 0.15s ease;
+  line-height: 1;
+}
+.item-comment-toggle:hover { color: var(--teal); }
+.item-comment-toggle.has-comment { color: var(--teal); }
+.item-delete:hover { color: var(--danger); }
+.item-delete { display: none; }
+.item.custom .item-delete { display: inline-block; }
+
+/* Custom items box (8th category, full width) */
+.custom-box {
+  grid-column: 1 / -1;
+  background: rgba(89,115,113,0.04);
+  border: 1.5px dashed rgba(89,115,113,0.4);
+  padding: 22px 24px;
+}
+
+.custom-box .category-header {
+  border-bottom: 1px solid rgba(89,115,113,0.2);
+}
+
+.custom-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.custom-input {
+  flex: 1;
+  padding: 10px 14px;
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 13px;
+  border: 1px solid rgba(10,18,42,0.15);
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+}
+.custom-input:focus { border-color: var(--teal); }
+
+.custom-add-btn {
+  padding: 10px 18px;
+  background: var(--teal);
+  color: var(--bg);
+  border: none;
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.custom-add-btn:hover { background: #4a6362; }
+.custom-add-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.custom-empty {
+  font-size: 12px;
+  color: rgba(10,18,42,0.5);
+  font-style: italic;
+  padding: 8px 0;
+}
+
+/* Infographic · radial visualization */
+.infographic-section {
+  grid-column: 1 / -1;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(10,18,42,0.08);
+}
+
+.infographic-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.infographic-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.infographic-subtitle {
+  font-size: 12px;
+  color: rgba(10,18,42,0.6);
+  font-style: italic;
+}
+
+.infographic-canvas {
+  background: rgba(89,115,113,0.03);
+  border: 1px solid rgba(89,115,113,0.15);
+  padding: 24px;
+  min-height: 760px;
+  position: relative;
+  overflow: hidden;
+}
+
+.infographic-empty {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  color: rgba(10,18,42,0.45);
+  font-style: italic;
+  text-align: center;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+#radialSvg {
+  width: 100%;
+  height: 720px;
+  display: block;
+}
+
+.radial-center-box {
+  fill: var(--teal);
+  stroke: var(--teal);
+}
+.radial-center-text {
+  fill: var(--bg);
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+/* Category cluster · intermediate node */
+.radial-category-box {
+  fill: var(--bg);
+  stroke: var(--teal);
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+.radial-category-text {
+  fill: var(--teal);
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+/* Lines */
+.radial-line-primary {
+  stroke: var(--teal);
+  stroke-width: 1.8;
+  opacity: 0.6;
+}
+.radial-line-secondary {
+  stroke: var(--teal);
+  stroke-width: 1.2;
+  opacity: 0.35;
+}
+
+/* Item nodes */
+.radial-node-group {
+  cursor: pointer;
+}
+.radial-node-group:hover .radial-node {
+  stroke: var(--teal);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 2px 6px rgba(89,115,113,0.25));
+}
+.radial-node {
+  fill: var(--soft);
+  stroke: var(--green);
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+.radial-node.custom {
+  fill: rgba(89,115,113,0.1);
+  stroke: var(--teal);
+  stroke-dasharray: 4 3;
+}
+
+.radial-rank-circle {
+  fill: var(--teal);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+.radial-rank-text {
+  fill: var(--bg);
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.radial-node-name {
+  fill: var(--ink);
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+/* Tooltip */
+.radial-tooltip {
+  position: absolute;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  max-width: 280px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 50;
+  border-left: 3px solid var(--green);
+}
+.radial-tooltip.visible { opacity: 1; }
+.radial-tooltip .tip-rank {
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.04em;
+}
+.radial-tooltip .tip-cat {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+.radial-tooltip .tip-comment {
+  margin-top: 6px;
+  font-style: italic;
+  opacity: 0.85;
+  border-top: 1px solid rgba(246,248,242,0.15);
+  padding-top: 6px;
+}
+.radial-tooltip .tip-hint {
+  margin-top: 8px;
+  font-size: 10px;
+  opacity: 0.55;
+  font-style: italic;
+}
+
+/* Sidebar · ranking list */
+.sidebar {
+  background: var(--bg);
+  border: 1px solid rgba(10,18,42,0.08);
+  padding: 22px 22px 18px;
+  position: sticky;
+  top: 36px;
+  height: fit-content;
+  max-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h3 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+
+.sidebar h2 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+.sidebar-instructions {
+  font-size: 11px;
+  color: rgba(10,18,42,0.55);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 14px;
+  padding-right: 4px;
+}
+
+.sidebar-empty {
+  font-size: 12px;
+  color: rgba(10,18,42,0.5);
+  font-style: italic;
+  padding: 16px 0;
+  text-align: center;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-bottom: 4px;
+  background: rgba(89,115,113,0.05);
+  border-left: 2px solid var(--teal);
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: grab;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+.sidebar-item:hover { background: rgba(89,115,113,0.1); }
+.sidebar-item.dragging { opacity: 0.4; cursor: grabbing; }
+.sidebar-item.drag-over { border-top: 3px solid var(--teal); }
+
+.sidebar-rank {
+  font-weight: 700;
+  color: var(--teal);
+  flex-shrink: 0;
+  min-width: 18px;
+}
+.sidebar-name { flex: 1; }
+.sidebar-category-mini {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(10,18,42,0.5);
+  margin-top: 2px;
+}
+
+.sidebar-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid rgba(10,18,42,0.07);
+}
+
+.btn {
+  padding: 8px 14px;
+  border: 1px solid rgba(10,18,42,0.15);
+  background: var(--bg);
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex: 1;
+  min-width: 0;
+}
+.btn:hover {
+  background: var(--soft);
+  border-color: var(--teal);
+}
+.btn-primary {
+  background: var(--teal);
+  color: var(--bg);
+  border-color: var(--teal);
+}
+.btn-primary:hover { background: #4a6362; }
+.btn-danger:hover {
+  background: rgba(180,60,60,0.06);
+  border-color: rgba(180,60,60,0.5);
+  color: var(--danger);
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  z-index: 100;
+  transform: translateY(120%);
+  transition: transform 0.3s ease;
+  max-width: 280px;
+}
+.toast.visible { transform: translateY(0); }
+
+/* Footer */
+.footer {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(10,18,42,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+@media (max-width: 1100px) {
+  body {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+  .sidebar {
+    position: static;
+    max-height: none;
+  }
+  .categories {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="assets/fluency-logo.png" alt="Fluency Labs" class="header-logo">
+  <div class="title-block">
+    <div class="label">Practical AI · Sesión 4</div>
+    <div class="ttl">Proyecto Retail Upselling · Priorización en vivo</div>
+  </div>
+</div>
+
+<div class="canvas">
+  <div class="canvas-intro">
+    <strong>Cómo usar este diagrama:</strong> Click sobre cada item según el orden en el que querés abordarlo. Primer click = posición 1, segundo click = posición 2, etc. Click otra vez para sacarlo. El sidebar muestra la lista priorizada en vivo. Drag-and-drop adentro del sidebar para reordenar. La infografía debajo muestra tu plan a medida que vas seleccionando.
+  </div>
+
+  <div class="categories" id="categories"></div>
+
+  <div class="infographic-section">
+    <div class="infographic-header">
+      <div class="infographic-title">Tu plan visualizado</div>
+      <div class="infographic-subtitle">Se construye en vivo a medida que priorizás</div>
+    </div>
+    <div class="infographic-canvas">
+      <div class="infographic-empty" id="infographicEmpty">
+        Hacé click en items del diagrama para empezar a construir tu plan visual.<br>
+        Los items se agrupan por área y se ordenan según prioridad.
+      </div>
+      <svg id="radialSvg" viewBox="0 0 1200 780" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="radial-tooltip" id="radialTooltip"></div>
+    </div>
+  </div>
+</div>
+
+<aside class="sidebar">
+  <h3>Tu plan de mes 2</h3>
+  <h2>Orden priorizado por Douglas</h2>
+  <p class="sidebar-instructions">Arrastrá los items dentro de esta lista para cambiar el orden.</p>
+
+  <div class="sidebar-list" id="sidebarList">
+    <p class="sidebar-empty" id="sidebarEmpty">Sin items priorizados. Hacé click en el primero del diagrama.</p>
+  </div>
+
+  <div class="sidebar-actions">
+    <button class="btn btn-danger" onclick="clearAll()">Limpiar</button>
+    <button class="btn" onclick="exportMD()">Exportar MD</button>
+    <button class="btn btn-primary" onclick="exportJSON()">Exportar JSON</button>
+  </div>
+</aside>
+
+<div class="footer">
+  <div>Fluency Labs · Mayo 2026</div>
+  <div>Persistencia local · localStorage</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CATEGORIES = [
+  {
+    id: 'estrategia',
+    num: '01',
+    title: 'Estrategia',
+    items: [
+      { id: 'business-plan', name: 'Business Plan' },
+      { id: 'modelo-financiero', name: 'Modelo Financiero' },
+      { id: 'tesis-negocio', name: 'Tesis del negocio (1 página)' },
+      { id: 'analisis-comparables', name: 'Análisis de comparables (Más Móvil, Repsol, etc.)' },
+      { id: 'plan-operativo', name: 'Plan operativo 3-5 años' }
+    ]
+  },
+  {
+    id: 'comercial',
+    num: '02',
+    title: 'Comercial',
+    items: [
+      { id: 'pitch-template', name: 'Pitch Template (base reusable)' },
+      { id: 'pitch-ceo', name: 'Pitch CEOs (joint venture)' },
+      { id: 'pitch-pe', name: 'Pitch PE / fondos' },
+      { id: 'skill-prep-meeting', name: 'Skill prep-meeting' },
+      { id: 'skill-memo-meeting', name: 'Skill memo-meeting' },
+      { id: 'diagramas-interactivos', name: 'Diagramas interactivos para pitches' },
+      { id: 'pitch-critic', name: 'Pitch critic agent (estilo Sequoia)' },
+      { id: 'outreach-personalization', name: 'Outreach personalization (cold mails por CEO)' },
+      { id: 'term-sheets', name: 'Term sheets y templates legales' }
+    ]
+  },
+  {
+    id: 'marca-comms',
+    num: '03',
+    title: 'Marca & Comms',
+    items: [
+      { id: 'brand-system', name: 'Brand System (logo, paleta, voice)' },
+      { id: 'web-landing', name: 'Web / Landing Page pública' },
+      { id: 'landing-inversores', name: 'Landing inversores con password' },
+      { id: 'anonymizer-skill', name: 'Anonymizer skill (info Mas Orange como referencia)' }
+    ]
+  },
+  {
+    id: 'discovery',
+    num: '04',
+    title: 'Discovery & Research',
+    items: [
+      { id: 'target-database', name: 'Target Database con scoring' },
+      { id: 'crm-seguimiento', name: 'CRM seguimiento (con info de Granola)' },
+      { id: 'news-monitoring', name: 'News monitoring de competidores' },
+      { id: 'comparables-deep', name: 'Comparables deep dive' },
+      { id: 'discovery-prep', name: 'Discovery prep agent (pre reunión)' }
+    ]
+  },
+  {
+    id: 'tools-mcps',
+    num: '05',
+    title: 'Tools / MCPs',
+    items: [
+      { id: 'granola', name: 'Granola (transcripts + memos)' },
+      { id: 'claude-design', name: 'Claude Design' },
+      { id: 'gmail-mcp', name: 'Gmail (outreach)' },
+      { id: 'gdrive-mcp', name: 'Google Drive (cloud storage)' },
+      { id: 'gcal-mcp', name: 'Google Calendar (meetings)' },
+      { id: 'web-search', name: 'Web Search (research público)' },
+      { id: 'slack-mcp', name: 'Slack (notificaciones)' }
+    ]
+  },
+  {
+    id: 'cloud-repos',
+    num: '06',
+    title: 'Cloud Repositories',
+    items: [
+      { id: 'github-repo', name: 'GitHub repo del proyecto (versionado)' },
+      { id: 'gdrive-folder', name: 'Google Drive folder (binarios + colaboración)' }
+    ]
+  },
+  {
+    id: 'agents',
+    num: '07',
+    title: 'Agents',
+    items: [
+      { id: 'daily-target-discovery', name: 'Daily target discovery (ya corriendo)' },
+      { id: 'news-monitoring-agent', name: 'News monitoring competidores' },
+      { id: 'pre-meeting-prep', name: 'Pre-meeting prep' },
+      { id: 'post-meeting-memo', name: 'Post-meeting memo' },
+      { id: 'crm-update', name: 'CRM update automático' },
+      { id: 'modelo-refresh', name: 'Modelo financiero refresh' }
+    ]
+  }
+];
+
+const CUSTOM_CATEGORY = {
+  id: 'custom',
+  num: '08',
+  title: 'Otros items',
+  items: []
+};
+
+const STORAGE_KEY = 'retail-upselling-priorization-v2';
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { ranking: [], comments: {}, custom: [] };
+    const parsed = JSON.parse(raw);
+    return {
+      ranking: parsed.ranking || [],
+      comments: parsed.comments || {},
+      custom: parsed.custom || []
+    };
+  } catch (e) {
+    return { ranking: [], comments: {}, custom: [] };
+  }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function getAllItems() {
+  const all = [];
+  CATEGORIES.forEach(cat => {
+    cat.items.forEach(item => all.push({ ...item, category: cat.title, categoryId: cat.id, custom: false }));
+  });
+  state.custom.forEach(item => all.push({ ...item, category: 'Otros items', categoryId: 'custom', custom: true }));
+  return all;
+}
+
+function getItemMeta(itemId) {
+  return getAllItems().find(i => i.id === itemId) || null;
+}
+
+function renderCategories() {
+  const container = document.getElementById('categories');
+  container.innerHTML = '';
+
+  CATEGORIES.forEach(cat => {
+    const catEl = buildCategoryElement(cat, false);
+    container.appendChild(catEl);
+  });
+
+  // Custom items box · always rendered last, full width
+  const customCat = { ...CUSTOM_CATEGORY, items: state.custom };
+  const customEl = buildCategoryElement(customCat, true);
+  container.appendChild(customEl);
+}
+
+function buildCategoryElement(cat, isCustom) {
+  const catEl = document.createElement('div');
+  catEl.className = 'category' + (isCustom ? ' custom-box' : '');
+  catEl.innerHTML = `
+    <div class="category-header">
+      <div class="category-title">${cat.title}</div>
+      <div class="category-num">${cat.num}</div>
+    </div>
+    ${isCustom ? `
+      <div class="custom-input-row">
+        <input type="text" class="custom-input" id="customInput" placeholder="Escribí un item que no esté listado y presioná Enter o el botón..." maxlength="120">
+        <button class="custom-add-btn" onclick="addCustomItem()">Agregar</button>
+      </div>
+    ` : ''}
+    <div class="category-items"></div>
+  `;
+  const itemsEl = catEl.querySelector('.category-items');
+
+  cat.items.forEach(item => {
+    const itemEl = buildItemElement(item, isCustom);
+    itemsEl.appendChild(itemEl);
+  });
+
+  if (isCustom && cat.items.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'custom-empty';
+    empty.textContent = 'Sin items custom. Sumá uno arriba.';
+    itemsEl.appendChild(empty);
+  }
+
+  if (isCustom) {
+    const input = catEl.querySelector('#customInput');
+    if (input) {
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addCustomItem();
+        }
+      });
+    }
+  }
+
+  return catEl;
+}
+
+function buildItemElement(item, isCustom) {
+  const itemEl = document.createElement('div');
+  const rank = state.ranking.indexOf(item.id);
+  const hasComment = !!state.comments[item.id];
+  itemEl.className = 'item' + (rank >= 0 ? ' priorized' : '') + (isCustom ? ' custom' : '');
+  itemEl.dataset.itemId = item.id;
+  itemEl.innerHTML = `
+    <div class="item-rank">${rank >= 0 ? (rank + 1) : ''}</div>
+    <div class="item-content">
+      <div class="item-name">${escapeHtml(item.name)}</div>
+      <div class="item-comment-saved ${hasComment ? 'visible' : ''}">${escapeHtml(state.comments[item.id] || '')}</div>
+      <div class="item-comment-box">
+        <textarea class="item-comment-input" placeholder="Comentario opcional (Enter para guardar)" rows="1">${escapeHtml(state.comments[item.id] || '')}</textarea>
+      </div>
+    </div>
+    <div class="item-actions">
+      <button class="item-comment-toggle ${hasComment ? 'has-comment' : ''}" title="Comentario opcional" aria-label="Comentario">✎</button>
+      <button class="item-delete" title="Eliminar item custom" aria-label="Eliminar">✕</button>
+    </div>
+  `;
+
+  const toggleBtn = itemEl.querySelector('.item-comment-toggle');
+  const deleteBtn = itemEl.querySelector('.item-delete');
+  const commentBox = itemEl.querySelector('.item-comment-box');
+  const commentInput = itemEl.querySelector('.item-comment-input');
+
+  itemEl.addEventListener('click', e => {
+    if (e.target === toggleBtn || toggleBtn.contains(e.target)) return;
+    if (e.target === deleteBtn || deleteBtn.contains(e.target)) return;
+    if (commentBox.contains(e.target)) return;
+    toggleItemRank(item.id);
+  });
+
+  toggleBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    commentBox.classList.toggle('active');
+    if (commentBox.classList.contains('active')) commentInput.focus();
+  });
+
+  if (isCustom) {
+    deleteBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      removeCustomItem(item.id);
+    });
+  }
+
+  commentInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      saveComment(item.id, commentInput.value);
+      commentBox.classList.remove('active');
+    }
+    if (e.key === 'Escape') commentBox.classList.remove('active');
+  });
+
+  commentInput.addEventListener('blur', () => saveComment(item.id, commentInput.value));
+
+  return itemEl;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function addCustomItem() {
+  const input = document.getElementById('customInput');
+  if (!input) return;
+  const raw = input.value.trim();
+  if (!raw) {
+    showToast('Escribí algo antes de agregar');
+    return;
+  }
+  if (raw.length > 120) {
+    showToast('Máximo 120 caracteres');
+    return;
+  }
+  const id = 'custom-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+  state.custom.push({ id, name: raw });
+  saveState();
+  renderCategories();
+  renderSidebar();
+  renderRadial();
+  showToast(`Sumado: ${raw}`);
+  // refocus
+  setTimeout(() => {
+    const newInput = document.getElementById('customInput');
+    if (newInput) newInput.focus();
+  }, 0);
+}
+
+function removeCustomItem(itemId) {
+  state.custom = state.custom.filter(i => i.id !== itemId);
+  state.ranking = state.ranking.filter(id => id !== itemId);
+  delete state.comments[itemId];
+  saveState();
+  renderCategories();
+  renderSidebar();
+  renderRadial();
+  showToast('Item custom eliminado');
+}
+
+function toggleItemRank(itemId) {
+  const idx = state.ranking.indexOf(itemId);
+  const meta = getItemMeta(itemId);
+  if (idx >= 0) {
+    state.ranking.splice(idx, 1);
+    showToast(`Removido: ${meta ? meta.name : itemId}`);
+  } else {
+    state.ranking.push(itemId);
+    showToast(`Posición ${state.ranking.length}: ${meta ? meta.name : itemId}`);
+  }
+  saveState();
+  renderCategories();
+  renderSidebar();
+  renderRadial();
+}
+
+function saveComment(itemId, value) {
+  const trimmed = (value || '').trim();
+  if (trimmed) state.comments[itemId] = trimmed;
+  else delete state.comments[itemId];
+  saveState();
+  renderCategories();
+  renderSidebar();
+  renderRadial();
+}
+
+function renderSidebar() {
+  const list = document.getElementById('sidebarList');
+  const empty = document.getElementById('sidebarEmpty');
+
+  if (state.ranking.length === 0) {
+    list.innerHTML = '';
+    list.appendChild(empty);
+    empty.style.display = 'block';
+    return;
+  }
+
+  list.innerHTML = '';
+  state.ranking.forEach((itemId, idx) => {
+    const meta = getItemMeta(itemId);
+    if (!meta) return;
+    const el = document.createElement('div');
+    el.className = 'sidebar-item';
+    el.draggable = true;
+    el.dataset.itemId = itemId;
+    el.innerHTML = `
+      <div class="sidebar-rank">${idx + 1}.</div>
+      <div class="sidebar-name">
+        ${escapeHtml(meta.name)}
+        <span class="sidebar-category-mini">${escapeHtml(meta.category)}</span>
+      </div>
+    `;
+
+    el.addEventListener('dragstart', e => {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', itemId);
+      el.classList.add('dragging');
+    });
+    el.addEventListener('dragend', () => {
+      el.classList.remove('dragging');
+      document.querySelectorAll('.sidebar-item.drag-over').forEach(n => n.classList.remove('drag-over'));
+    });
+    el.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      el.classList.add('drag-over');
+    });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', e => {
+      e.preventDefault();
+      const sourceId = e.dataTransfer.getData('text/plain');
+      if (!sourceId || sourceId === itemId) return;
+      const sourceIdx = state.ranking.indexOf(sourceId);
+      const targetIdx = state.ranking.indexOf(itemId);
+      if (sourceIdx < 0 || targetIdx < 0) return;
+      state.ranking.splice(sourceIdx, 1);
+      const newTargetIdx = state.ranking.indexOf(itemId);
+      state.ranking.splice(newTargetIdx, 0, sourceId);
+      saveState();
+      renderCategories();
+      renderSidebar();
+      renderRadial();
+      showToast('Orden actualizado');
+    });
+
+    list.appendChild(el);
+  });
+}
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+function svgEl(name, attrs) {
+  const el = document.createElementNS(SVG_NS, name);
+  for (const k in attrs) el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+function renderRadial() {
+  const svg = document.getElementById('radialSvg');
+  const emptyMsg = document.getElementById('infographicEmpty');
+  svg.innerHTML = '';
+
+  if (state.ranking.length === 0) {
+    emptyMsg.style.display = 'block';
+    svg.style.display = 'none';
+    return;
+  }
+  emptyMsg.style.display = 'none';
+  svg.style.display = 'block';
+
+  // Layout dimensions · viewBox 1200x780
+  const cx = 600, cy = 390;
+  const centerW = 160, centerH = 70;
+  const catRadius = 195;
+  const catBoxW = 140, catBoxH = 40;
+  const itemRadius = 360;
+  const itemBoxW = 150, itemBoxH = 52;
+
+  // Group priorized items by category (preserving rank)
+  const itemsByCategory = new Map();
+  state.ranking.forEach((itemId, idx) => {
+    const meta = getItemMeta(itemId);
+    if (!meta) return;
+    if (!itemsByCategory.has(meta.categoryId)) {
+      itemsByCategory.set(meta.categoryId, { name: meta.category, items: [] });
+    }
+    itemsByCategory.get(meta.categoryId).items.push({ ...meta, rank: idx + 1 });
+  });
+
+  const categoryGroups = [...itemsByCategory.entries()];
+  const totalCats = categoryGroups.length;
+  if (totalCats === 0) return;
+
+  // Each category gets an angular sector. Distribute uniformly.
+  const sectorAngle = (2 * Math.PI) / totalCats;
+  // Items inside a category use a sub-spread of the sector
+  const maxItemSpread = sectorAngle * 0.78;
+
+  // Pre-compute positions
+  categoryGroups.forEach(([catId, group], catIdx) => {
+    const baseAngle = catIdx * sectorAngle - Math.PI / 2;
+    const catX = cx + Math.cos(baseAngle) * catRadius;
+    const catY = cy + Math.sin(baseAngle) * catRadius;
+    group.angle = baseAngle;
+    group.catX = catX;
+    group.catY = catY;
+
+    const n = group.items.length;
+    if (n === 1) {
+      group.items[0].angle = baseAngle;
+    } else {
+      const itemSpread = Math.min(maxItemSpread, sectorAngle * 0.85);
+      const start = baseAngle - itemSpread / 2;
+      const step = itemSpread / (n - 1);
+      group.items.forEach((item, i) => { item.angle = start + step * i; });
+    }
+    group.items.forEach(item => {
+      item.x = cx + Math.cos(item.angle) * itemRadius;
+      item.y = cy + Math.sin(item.angle) * itemRadius;
+    });
+  });
+
+  // 1. Draw primary lines (center → category nodes)
+  categoryGroups.forEach(([_, group]) => {
+    svg.appendChild(svgEl('line', {
+      x1: cx, y1: cy, x2: group.catX, y2: group.catY,
+      class: 'radial-line-primary'
+    }));
+  });
+
+  // 2. Draw secondary lines (category → items)
+  categoryGroups.forEach(([_, group]) => {
+    group.items.forEach(item => {
+      svg.appendChild(svgEl('line', {
+        x1: group.catX, y1: group.catY, x2: item.x, y2: item.y,
+        class: 'radial-line-secondary'
+      }));
+    });
+  });
+
+  // 3. Draw item nodes (so they sit above lines but below center)
+  categoryGroups.forEach(([_, group]) => {
+    group.items.forEach(item => {
+      drawItemNode(svg, item, itemBoxW, itemBoxH);
+    });
+  });
+
+  // 4. Draw category nodes
+  categoryGroups.forEach(([_, group]) => {
+    svg.appendChild(svgEl('rect', {
+      x: group.catX - catBoxW / 2,
+      y: group.catY - catBoxH / 2,
+      width: catBoxW,
+      height: catBoxH,
+      class: 'radial-category-box'
+    }));
+    const catText = svgEl('text', {
+      x: group.catX, y: group.catY,
+      class: 'radial-category-text'
+    });
+    catText.textContent = group.name;
+    svg.appendChild(catText);
+  });
+
+  // 5. Draw central node (last so it sits on top)
+  svg.appendChild(svgEl('rect', {
+    x: cx - centerW / 2, y: cy - centerH / 2,
+    width: centerW, height: centerH,
+    class: 'radial-center-box'
+  }));
+  const ct1 = svgEl('text', {
+    x: cx, y: cy - 11,
+    class: 'radial-center-text'
+  });
+  ct1.textContent = 'Retail';
+  svg.appendChild(ct1);
+  const ct2 = svgEl('text', {
+    x: cx, y: cy + 11,
+    class: 'radial-center-text'
+  });
+  ct2.textContent = 'Upselling';
+  svg.appendChild(ct2);
+}
+
+function drawItemNode(svg, item, w, h) {
+  const g = svgEl('g', { class: 'radial-node-group', 'data-item-id': item.id });
+
+  // Node box
+  g.appendChild(svgEl('rect', {
+    x: item.x - w / 2, y: item.y - h / 2,
+    width: w, height: h,
+    class: 'radial-node' + (item.custom ? ' custom' : '')
+  }));
+
+  // Name (truncated)
+  const displayName = item.name.length > 24 ? item.name.slice(0, 22) + '…' : item.name;
+  const nameText = svgEl('text', {
+    x: item.x, y: item.y,
+    class: 'radial-node-name'
+  });
+  nameText.textContent = displayName;
+  g.appendChild(nameText);
+
+  // Rank badge (top-right of node, sits on the corner)
+  const rankCx = item.x + w / 2 - 4;
+  const rankCy = item.y - h / 2 + 4;
+  g.appendChild(svgEl('circle', {
+    cx: rankCx, cy: rankCy, r: 12,
+    class: 'radial-rank-circle'
+  }));
+  const rankText = svgEl('text', {
+    x: rankCx, y: rankCy,
+    class: 'radial-rank-text'
+  });
+  rankText.textContent = item.rank;
+  g.appendChild(rankText);
+
+  // Click → remove from priority (mirrors grid click)
+  g.addEventListener('click', () => {
+    toggleItemRank(item.id);
+  });
+
+  // Hover → show tooltip
+  g.addEventListener('mouseenter', (e) => showTooltip(item, e));
+  g.addEventListener('mousemove', (e) => moveTooltip(e));
+  g.addEventListener('mouseleave', hideTooltip);
+
+  svg.appendChild(g);
+}
+
+const tooltipEl = document.getElementById('radialTooltip');
+function showTooltip(item, e) {
+  const comment = state.comments[item.id];
+  const customTag = item.custom ? ' · custom' : '';
+  tooltipEl.innerHTML = `
+    <div><span class="tip-rank">Prioridad ${item.rank}</span> · ${escapeHtml(item.name)}</div>
+    <div class="tip-cat">${escapeHtml(item.category)}${customTag}</div>
+    ${comment ? `<div class="tip-comment">"${escapeHtml(comment)}"</div>` : ''}
+    <div class="tip-hint">Click para quitar del plan</div>
+  `;
+  tooltipEl.classList.add('visible');
+  moveTooltip(e);
+}
+function moveTooltip(e) {
+  const canvas = document.querySelector('.infographic-canvas');
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const ttW = tooltipEl.offsetWidth || 240;
+  const ttH = tooltipEl.offsetHeight || 60;
+  let left = x + 14;
+  let top = y + 14;
+  if (left + ttW > rect.width) left = x - ttW - 14;
+  if (top + ttH > rect.height) top = y - ttH - 14;
+  tooltipEl.style.left = Math.max(8, left) + 'px';
+  tooltipEl.style.top = Math.max(8, top) + 'px';
+}
+function hideTooltip() {
+  tooltipEl.classList.remove('visible');
+}
+
+function clearAll() {
+  if (state.ranking.length === 0 && Object.keys(state.comments).length === 0 && state.custom.length === 0) {
+    showToast('Nada para limpiar');
+    return;
+  }
+  if (!confirm('Esto borra toda la priorización, los comentarios y los items custom. ¿Seguro?')) return;
+  state = { ranking: [], comments: {}, custom: [] };
+  saveState();
+  renderCategories();
+  renderSidebar();
+  renderRadial();
+  showToast('Limpio. Empezamos de nuevo');
+}
+
+function buildExportData() {
+  const items = state.ranking.map((itemId, idx) => {
+    const meta = getItemMeta(itemId);
+    return {
+      position: idx + 1,
+      id: itemId,
+      name: meta ? meta.name : itemId,
+      category: meta ? meta.category : '',
+      categoryId: meta ? meta.categoryId : '',
+      custom: meta ? !!meta.custom : false,
+      comment: state.comments[itemId] || ''
+    };
+  });
+  return {
+    project: 'Retail Upselling',
+    client: 'Douglas Medrisch',
+    session: 'S4',
+    exportedAt: new Date().toISOString(),
+    totalItems: items.length,
+    customItemsCount: items.filter(i => i.custom).length,
+    items
+  };
+}
+
+function exportMD() {
+  const data = buildExportData();
+  if (data.items.length === 0) {
+    showToast('Sin items para exportar');
+    return;
+  }
+  const lines = [];
+  lines.push(`# Plan Mes 2 · Retail Upselling`);
+  lines.push('');
+  lines.push(`Cliente: ${data.client}`);
+  lines.push(`Sesión: ${data.session}`);
+  lines.push(`Exportado: ${new Date(data.exportedAt).toLocaleString('es-ES')}`);
+  lines.push(`Items priorizados: ${data.totalItems} (${data.customItemsCount} custom)`);
+  lines.push('');
+  lines.push('## Orden de trabajo');
+  lines.push('');
+  data.items.forEach(item => {
+    const customTag = item.custom ? ' · custom' : '';
+    lines.push(`### ${item.position} · ${item.name}`);
+    lines.push(`*${item.category}${customTag}*`);
+    if (item.comment) {
+      lines.push('');
+      lines.push(`> ${item.comment}`);
+    }
+    lines.push('');
+  });
+  copyToClipboard(lines.join('\n'));
+  showToast('Markdown copiado al portapapeles');
+}
+
+function exportJSON() {
+  const data = buildExportData();
+  if (data.items.length === 0) {
+    showToast('Sin items para exportar');
+    return;
+  }
+  copyToClipboard(JSON.stringify(data, null, 2));
+  showToast('JSON copiado al portapapeles');
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('visible');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('visible'), 2400);
+}
+
+// Initial render
+renderCategories();
+renderSidebar();
+renderRadial();
+</script>
+
+</body>
+</html>
